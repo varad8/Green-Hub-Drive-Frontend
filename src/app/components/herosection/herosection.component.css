@@ -1,0 +1,29 @@
+main {
+  overflow: hidden;
+  @apply dark:bg-gray-900 bg-white;
+}
+.hero {
+  @apply flex xl:flex-row flex-col gap-5  relative z-0 max-w-[1440px] mx-auto;
+}
+.hero-container {
+  @apply flex-1 pt-36  sm:px-16 px-6 flex flex-col items-center;
+}
+
+.hero__title {
+  @apply 2xl:text-[50px] sm:text-[30px] text-[50px] font-extrabold dark:text-white; /* Keep the font styles */
+}
+
+.hero__subtitle {
+  @apply text-[27px] text-black-100 font-light mt-5 dark:text-gray-200; /* Keep the font styles */
+}
+
+.hero__image-container {
+  @apply xl:flex-[1.5] flex justify-center items-center w-full xl:h-screen overflow-hidden; /* Adjust alignment and overflow */
+}
+
+.hero__image {
+  @apply relative xl:w-full w-[90%] xl:h-full h-[200px] z-0;
+}
+.invert-green {
+  filter: hue-rotate(-90deg);
+}

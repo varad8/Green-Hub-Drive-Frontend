@@ -1,0 +1,25 @@
+<!-- Booking SuccessModal -->
+<div class="fixed inset-0 flex items-center justify-center z-50">
+    <!-- Background overlay -->
+    <div class="fixed inset-0 bg-gray-900 opacity-50"></div>
+
+    <!-- Modal container -->
+    <div class="bg-white p-8 rounded shadow-md max-w-sm z-50 h-100 bg-center bg-cover"
+        style="background-image: url('https://cdn.dribbble.com/users/4358240/screenshots/14825308/media/84f51703b2bfc69f7e8bb066897e26e0.gif')">
+        <!-- Modal header -->
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-green-100">Booking Success!</h3>
+            <!-- Close button -->
+            <button class="text-gray-100 hover:text-gray-50" (click)="closeModal()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Optional message -->
+        <p class="text-green-700 ">Your booking was successful!</p>
+    </div>
+</div>

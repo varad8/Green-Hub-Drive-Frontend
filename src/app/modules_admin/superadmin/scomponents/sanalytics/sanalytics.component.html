@@ -1,0 +1,205 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Todays booking -->
+    <div class="bg-white rounded-lg shadow-md">
+        <div
+            class="flex items-center gap-2 drop-shadow-2 rounded-lg border-gray-200 border dark:border-none dark:bg-slate-700">
+            <div class="font-serif text-[30px] bg-green-600 p-3 rounded-lg text-white">
+                {{countdata?.todaysBookingCount}}
+            </div>
+            <div>
+                <h2 class="text-xl font-bold dark:text-gray-100">Todays bookings</h2>
+                <p class="text-gray-600 dark:text-gray-200">Number of bookings todays</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Booking count -->
+    <div class="bg-white rounded-lg shadow-md">
+        <div
+            class="flex items-center gap-2 drop-shadow-2 rounded-lg border-gray-200 border dark:border-none dark:bg-slate-700">
+            <div class="font-serif text-[30px] bg-green-600 p-3 rounded-lg text-white">
+                {{countdata?.totalBookingCount}}
+            </div>
+            <div>
+                <h2 class="text-xl font-bold dark:text-gray-100">Booking</h2>
+                <p class="text-gray-600 dark:text-gray-200">Number of bookings all time</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visited-->
+    <div class="bg-white rounded-lg shadow-md">
+        <div
+            class="flex items-center gap-2 drop-shadow-2 rounded-lg border-gray-200 border dark:border-none dark:bg-slate-700">
+            <div class="font-serif text-[30px] bg-green-600 p-3 rounded-lg text-white">
+                {{countdata?.visitedCount}}
+            </div>
+            <div>
+                <h2 class="text-xl font-bold dark:text-gray-100">Visited</h2>
+                <p class="text-gray-600 dark:text-gray-200">Number of visited users</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Not Visited -->
+    <div class="bg-white rounded-lg shadow-md">
+        <div
+            class="flex items-center gap-2 drop-shadow-2 rounded-lg border-gray-200 border dark:border-none dark:bg-slate-700">
+            <div class="font-serif text-[30px] bg-green-600 p-3 rounded-lg text-white">
+                {{countdata?.notVisitedCount}}
+            </div>
+            <div>
+                <h2 class="text-xl font-bold dark:text-gray-100">Not Visited</h2>
+                <p class="text-gray-600 dark:text-gray-200">Number of not visited users</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="border-b border-gray-300 mt-3 mb-3 dark:border-green-200"></div>
+
+<h4 class="text-2xl dark:text-green-300 font-bold mt-5 mb-3 text-gray-500">Stats</h4>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-2">
+    <div>
+        <h2 class="text-gray-600 text-2xl mb-3 mt-3">Bookings</h2>
+        <div
+            class="lg:h-[400px] xl:h-[400px] h-auto w-auto shadow-md border border-gray-300 bg-white px-4 py-3 rounded-md ">
+            <canvas id="canvas">{{chart}}</canvas>
+        </div>
+    </div>
+
+    <div>
+        <h2 class="text-gray-600 text-2xl mb-3 mt-3">Payments</h2>
+        <div
+            class="lg:h-[400px] xl:h-[400px] h-auto w-auto shadow-md border border-gray-300 bg-white px-4 py-3 rounded-md ">
+            <canvas id="canvas2">{{pchart}}</canvas>
+        </div>
+    </div>
+</div>
+
+
+<h4 class="text-2xl dark:text-green-300 font-bold mt-5 mb-3 text-gray-500">All Stations</h4>
+
+
+<div class="border-b border-gray-300 mt-3 mb-3 dark:border-green-200"></div>
+<h4 class="text-2xl dark:text-green-300 font-bold mt-5 mb-3 text-gray-500">Request to be Approve</h4>
+
+<div *ngIf="inactiveProfiles.length > 0; else noProfiles">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div *ngFor="let profile of inactiveProfiles"
+            class="bg-white rounded-lg shadow-md overflow-hidden dark:border-green-400 dark:border">
+            <div class="relative">
+                <img [src]="getProfileImageUrl(profile?.imageUrl)" alt="Profile Image" class="w-full h-48 object-cover">
+                <img [src]="getProfileImageUrl(profile?.profile?.profilepic)" alt="Profile Picture"
+                    class="absolute top-2 right-2 w-12 h-12 rounded-full border-2 border-white shadow-md">
+            </div>
+            <div class="p-4">
+                <h3 class="text-xl font-semibold mb-2">{{ profile?.title }}</h3>
+                <p><strong>Description:</strong> {{ profile?.description?.substring(0,100) }} ...</p>
+                <p><strong>Location:</strong> {{ profile?.location?.city }}, {{ profile?.location?.state }}</p>
+
+                <div class="flex mt-2 gap-2 items-center justify-between">
+                    <div class="flex gap-2"><svg xmlns="http://www.w3.org/2000/svg" fill="#FACC15"
+                            viewBox="-96 0 512 512" class="w-6 h-6 text-yellow-400">
+                            <path
+                                d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z" />
+                        </svg>
+                        <p class="text-gray-700  dark:text-gray-800 text-lg font-medium">{{ profile?.rate}} /per hour
+                        </p>
+                    </div>
+
+                    <div class="flex gap-2"><svg xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" class="w-6 h-6 text-orange-500" version="1.1"
+                            id="Capa_1" viewBox="0 0 47.94 47.94" xml:space="preserve">
+                            <path style="fill:#ff9100;"
+                                d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757  c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042  c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685  c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528  c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956  C22.602,0.567,25.338,0.567,26.285,2.486z" />
+                        </svg>
+                        <p>{{profile?.averageRating?.averageRating}}</p>
+                    </div>
+                </div>
+
+
+
+                <!-- Read More/Approve -->
+
+                <div class="flex gap-2 items-center mt-3 mb-3 justify-center">
+                    <a routerLink="../details/{{profile?.userid}}"
+                        class="rounded-full bg-black drop-shadow px-2 py-2 text-white">Read
+                        More</a>
+                    <button (click)="approveProfile(profile)" type="button"
+                        class="rounded-full bg-green-500 px-2 py-2 drop-shadow text-white">Click to
+                        Approve</button>
+                    <a routerLink="../stats/{{profile?.userid}}"
+                        class="rounded-full bg-black drop-shadow px-2 py-2 text-white">Stats</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #noProfiles>
+    <p class="text-lg dark:text-gray-300">No inactive profiles found.</p>
+</ng-template>
+
+
+<div class="border-b border-gray-300 mt-3 mb-3 dark:border-green-200"></div>
+<h4 class="text-2xl dark:text-green-300 font-bold mt-5 mb-3 text-gray-500">Approved Profile</h4>
+
+<div *ngIf="activeProfiles.length > 0; else noActiveProfiles">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div *ngFor="let profile of activeProfiles"
+            class="bg-white rounded-lg shadow-md overflow-hidden dark:border-green-400 dark:border">
+            <div class="relative">
+                <img [src]="getProfileImageUrl(profile?.imageUrl)" alt="Profile Image" class="w-full h-48 object-cover">
+                <img [src]="getProfileImageUrl(profile?.profile?.profilepic)" alt="Profile Picture"
+                    class="absolute top-2 right-2 w-12 h-12 rounded-full border-2 border-white shadow-md">
+            </div>
+            <div class="p-4">
+                <h3 class="text-xl font-semibold mb-2">{{ profile?.title }}</h3>
+                <p><strong>Description:</strong> {{ profile?.description.substring(0,100) }} ...</p>
+                <p><strong>Location:</strong> {{ profile?.location?.city }}, {{ profile?.location?.state }}</p>
+
+                <div class="flex gap-2 items-center justify-between mt-2">
+                    <div class="flex gap-2"><svg xmlns="http://www.w3.org/2000/svg" fill="#FACC15"
+                            viewBox="-96 0 512 512" class="w-6 h-6 text-yellow-400">
+                            <path
+                                d="M308 96c6.627 0 12-5.373 12-12V44c0-6.627-5.373-12-12-12H12C5.373 32 0 37.373 0 44v44.748c0 6.627 5.373 12 12 12h85.28c27.308 0 48.261 9.958 60.97 27.252H12c-6.627 0-12 5.373-12 12v40c0 6.627 5.373 12 12 12h158.757c-6.217 36.086-32.961 58.632-74.757 58.632H12c-6.627 0-12 5.373-12 12v53.012c0 3.349 1.4 6.546 3.861 8.818l165.052 152.356a12.001 12.001 0 0 0 8.139 3.182h82.562c10.924 0 16.166-13.408 8.139-20.818L116.871 319.906c76.499-2.34 131.144-53.395 138.318-127.906H308c6.627 0 12-5.373 12-12v-40c0-6.627-5.373-12-12-12h-58.69c-3.486-11.541-8.28-22.246-14.252-32H308z" />
+                        </svg>
+                        <p class="text-gray-700  dark:text-gray-800 text-lg font-medium">{{ profile.rate}} /per hour
+                        </p>
+                    </div>
+
+                    <div class="flex gap-2"><svg xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" class="w-6 h-6 text-orange-500" version="1.1"
+                            id="Capa_1" viewBox="0 0 47.94 47.94" xml:space="preserve">
+                            <path style="fill:#ff9100;"
+                                d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757  c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042  c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685  c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528  c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956  C22.602,0.567,25.338,0.567,26.285,2.486z" />
+                        </svg>
+                        <p>{{profile?.averageRating?.averageRating}}</p>
+                    </div>
+                </div>
+
+
+                <!-- Read More/Approve -->
+
+                <div class="flex gap-2 items-center mt-3 mb-3 justify-center">
+                    <a routerLink="../details/{{profile?.userid}}"
+                        class="rounded-full bg-black drop-shadow px-1 py-2 text-white">Read
+                        More</a>
+                    <button (click)="disapproveProfile(profile)" type="button"
+                        class="rounded-full bg-green-500 px-1 py-2 drop-shadow text-white">Click to
+                        DisApprove</button>
+                    <a routerLink="../stats/{{profile?.userid}}"
+                        class="rounded-full bg-black drop-shadow px-1 py-2 text-white">Stats</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #noActiveProfiles>
+    <p class="text-lg dark:text-gray-300">No active profiles found.</p>
+</ng-template>

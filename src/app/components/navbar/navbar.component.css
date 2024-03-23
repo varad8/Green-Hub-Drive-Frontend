@@ -1,0 +1,39 @@
+.nav-desktop {
+  @apply relative px-4 py-4 flex justify-between items-center bg-white dark:bg-slate-800 shadow-md;
+}
+.nav-desktop-logo {
+  @apply text-3xl font-bold leading-none;
+}
+.desktop-menu {
+  @apply hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto  lg:items-center lg:w-auto lg:space-x-6;
+}
+.desktop-li {
+  @apply text-sm text-gray-700 hover:text-gray-800 dark:text-green-600;
+}
+.signin-btn-desktop {
+  @apply hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200;
+}
+.signup-btn-desktop {
+  @apply hidden lg:inline-block py-2 px-6 bg-green-500 hover:bg-green-600 text-sm text-white font-bold rounded-xl transition duration-200;
+}
+.mobile-menu {
+  @apply lg:hidden flex;
+}
+.hamburger-mobile-menu {
+  @apply flex items-center text-blue-600 p-3;
+}
+.btn-dark {
+  @apply lg:mr-3 py-2 px-6 flex transition-transform hover:scale-125 align-middle dark:text-yellow-600;
+}
+.nav-li-item {
+  @apply block p-4 text-sm font-semibold  hover:bg-green-100 drop-shadow text-gray-700 dark:hover:bg-green-600 hover:shadow dark:shadow-white dark:text-gray-100 rounded;
+}
+.sign-up-btn {
+  @apply block px-4 py-3 mb-2 shadow  leading-loose text-xs text-center text-white font-semibold bg-green-600 hover:bg-green-700  rounded-xl;
+}
+.sign-in-btn {
+  @apply block px-4 py-3 mb-3 leading-loose border border-green-600 text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl shadow;
+}
+.mobile-nav {
+  @apply fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white dark:bg-gray-800 border-r overflow-y-auto;
+}

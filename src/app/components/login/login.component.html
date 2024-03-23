@@ -1,0 +1,77 @@
+<div class="bg-userlog bg-cover bg-center">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="px-8 py-6 mx-4 mt-4 text-left bg-white shadow-lg md:w-1/3 lg:w-1/4">
+            <h3 class="text-2xl font-bold text-center">Log in to your account</h3>
+            <form class="mt-4">
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-700" for="email">Email</label>
+                    <input id="email" name="email" [(ngModel)]="email"
+                        class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40"
+                        type="email" placeholder="name@example.com">
+                </div>
+                <div class="mt-4">
+                    <label class="block mb-2 text-sm font-medium text-gray-700" for="password">Password</label>
+                    <input id="password" name="password" [(ngModel)]="password"
+                        class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40"
+                        type="password" placeholder="••••••••">
+                </div>
+                <div class="flex items-center justify-between mt-4">
+                    <div class="flex items-center">
+                        <input id="remember-me" type="checkbox"
+                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" checked disabled>
+                        <label for="remember-me" class="ml-2 text-sm text-gray-700">Remember me</label>
+                    </div>
+                    <button type="button" (click)="openForgotPasswordModal()"
+                        class="text-sm text-blue-600 hover:underline">Forgot Password?</button>
+                </div>
+                <div class="mt-6">
+                    <button (click)="userLogin()"
+                        class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-600 rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                        Log in
+                    </button>
+                </div>
+                <div class="mt-6 text-center">
+                    Don't have an account? <a routerLink="/register/user" class="text-blue-600 hover:underline">Sign
+                        up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Modal for forgot password -->
+    <!-- Background overlay -->
+
+    <div *ngIf="showForgotPasswordModal" class="fixed inset-0 flex items-center justify-center z-50"
+        id="forgot-password-modal">
+        <div class="fixed inset-0 bg-black opacity-60"></div>
+
+        <div class="flex items-center w-full justify-center min-h-screen z-50">
+            <div class="px-8 py-6 mx-4 mt-4 text-left bg-white shadow-lg md:w-1/3 lg:w-1/4">
+                <h3 class="text-2xl font-bold text-center">Forgot Password</h3>
+                <p class="mt-4 text-sm text-gray-500">Enter your email address and we'll send you a link to reset your
+                    password.</p>
+                <form class="mt-4">
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-700"
+                            for="forgot-password-email">Email</label>
+                        <input id="forgot-password-email" name="femail" [(ngModel)]="femail"
+                            class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40"
+                            type="email" placeholder="name@example.com">
+                    </div>
+                    <div class="mt-6">
+                        <button (click)="forgotPasswordUsingEmail()"
+                            class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-600 rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                            Send Reset Link
+                        </button>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <button type="button" (click)="this.showForgotPasswordModal=false"
+                            class="text-sm text-blue-600 hover:underline"
+                            id="close-forgot-password-modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

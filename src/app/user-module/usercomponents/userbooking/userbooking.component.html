@@ -1,0 +1,353 @@
+<div class="flex-col flex h-screen gap-3">
+
+    <!-- Filter and search controls -->
+    <h3 class="text-2xl text-gray-500 dark:text-white font-serif">Booking Data</h3>
+    <div class="flex justify-between mb-4 flex-wrap">
+        <!-- Filter options -->
+        <div class="flex flex-col gap-1">
+            <span class="text-[15px] text-gray-600 dark:text-gray-300">Sort by Bookings</span>
+            <select [(ngModel)]="filterType" (change)="filterBookings()"
+                class="border border-gray-300 rounded-md p-1 mr-2">
+                <option value="All">All</option>
+                <option value="Today">Today</option>
+                <option value="Upcoming">Upcoming</option>
+                <option value="Yesterday">Yesterday</option>
+                <option value="Visited">Visited</option>
+                <option value="NotVisited">Not Visited</option>
+            </select>
+        </div>
+        <!-- Search by user email -->
+        <div class="flex flex-col gap-1">
+            <span class="text-[15px] text-gray-600 dark:text-gray-300">Search by user email</span>
+            <input type="text" [(ngModel)]="searchTerm" (input)="filterBookings()" placeholder="Search by User Email"
+                class="border border-gray-300 rounded-md p-1">
+        </div>
+
+        <!-- Filter by Date -->
+        <div class="flex flex-col gap-1">
+            <span class="text-[15px] text-gray-600 dark:text-gray-300">Search by date</span>
+            <input type="date" [(ngModel)]="filterDate" (input)="filterBookings()" placeholder="filter by date"
+                class="border border-gray-300 rounded-md p-1">
+        </div>
+
+
+        <!-- Search by userid -->
+        <div class="flex flex-col gap-1">
+            <span class="text-[15px] text-gray-600 dark:text-gray-300">Search by station id</span>
+            <input type="text" [(ngModel)]="stationid" (input)="filterBookings()" placeholder="Search by Station id"
+                class="border border-gray-300 rounded-md p-1">
+        </div>
+
+
+    </div>
+    <!-- Second grid section -->
+    <div class="h-screen  overflow-y-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-4 mt-2 mb-3">
+            <ng-container *ngFor="let booking of filteredBookings; let i = index">
+                <div class="bg-white dark:bg-slate-800 shadow-lg rounded-lg  w-full border border-gray-400">
+                    <div class="px-4 py-2">
+                        <h3 class="text-lg font-semibold dark:text-gray-200 text-gray-700">{{ booking.evid }}</h3>
+                        <hr />
+
+                        <!-- Booking Details -->
+                        <h5 class="text-lg text-gray-500 dark:text-gray-400">Booking Details</h5>
+                        <!-- Display booking data -->
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">User Id: {{ booking.userId }}</p>
+                            <p class="text-gray-500 text-sm">Station Id: {{ booking.stationId }}</p>
+                        </div>
+
+                        <!-- Display remaining booking details -->
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">Booked For: {{ booking.bookedForDate }}</p>
+                            <p class="text-gray-500 text-sm">Time: {{ booking.timeForBooked }}</p>
+                        </div>
+
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm"> Hours of Booking: {{ booking.totalHoursEvBooking }}
+                                hrs.
+                            </p>
+                            <p class="text-gray-500 text-sm">Expected End Time: {{
+                                calculateExpectedEndTime(booking.timeForBooked, booking.totalHoursEvBooking) }}</p>
+                        </div>
+
+
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">Status: {{ booking.visitingStatus }}</p>
+                            <p class="text-gray-500 text-sm">Booking Slot: {{ booking.bookingSlot }}</p>
+                        </div>
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">Total Payable: ₹{{ booking.totalPayable }}</p>
+                            <p class="text-gray-500 text-sm">Remark: {{ booking.remark }}</p>
+                        </div>
+
+                        <hr class="mb-2 mt-2" />
+                        <!-- Display Payment Details -->
+                        <h5 class="text-lg text-gray-500 dark:text-gray-400">Payment Details</h5>
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">Payment Type: {{ booking.paymentDetails.paymentType }}
+                            </p>
+                            <p class="text-gray-500 text-sm">Payment Status: {{ booking.paymentDetails.paymentStatus
+                                }}</p>
+                        </div>
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">Payment Amount: ₹{{ booking.paymentDetails.amount }}
+                            </p>
+                            <p class="text-gray-500 text-sm">Payment Transaction ID: {{
+                                booking.paymentDetails.transactionid }}
+                            </p>
+                        </div>
+
+                        <hr class="mb-2 mt-2" />
+
+                        <!-- Display user profile data -->
+                        <h5 class="text-lg text-gray-500 dark:text-gray-400">Personal Details</h5>
+                        <div *ngIf="userProfiles[i]">
+                            <div class="flex gap-5 justify-between mt-2 mb-2">
+                                <p class="text-gray-500 text-sm">User Name: {{ userProfiles[i].firstname }} {{
+                                    userProfiles[i].lastname }}</p>
+                                <p class="text-gray-500 text-sm">Email: {{ userProfiles[i].email }}</p>
+                            </div>
+                            <div class="flex gap-5 justify-between mt-2 mb-2">
+                                <p class="text-gray-500 text-sm">Mobile: {{ userProfiles[i].mobile }}</p>
+                                <p class="text-gray-500 text-sm">Address: {{ userProfiles[i].address }}</p>
+                            </div>
+
+                            <div class="flex gap-5 justify-between mt-2 mb-2">
+                                <p class="text-gray-500 text-sm">Location : {{userProfiles[i].city}} -
+                                    {{userProfiles[i].state}}</p>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                    <div *ngIf="booking.visitingStatus === 'Not Visited' && !isFutureTime(booking.bookedForDate, calculateExpectedEndTime(booking.timeForBooked, booking.totalHoursEvBooking)  )"
+                        class="px-4 py-2  bg-gray-200">
+                        <p class="text-sm text-gray-500">User not visited </p>
+                    </div>
+
+
+
+
+                    <div *ngIf="booking.visitingStatus === 'Visited'"
+                        class="px-4 py-2 flex gap-2 justify-between items-center bg-green-200">
+                        <p class="text-sm text-gray-500">Visited</p>
+                        <button (click)="toggleModal(booking)"
+                            class="bg-green-700 text-white flex gap-2 justify-center items-center px-3 py-1 rounded-lg">Rate
+                            Us
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                class="h-8 w-8" version="1.1" id="Capa_1" viewBox="0 0 47.94 47.94"
+                                xml:space="preserve">
+                                <path style="fill:#ED8A19;"
+                                    d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757  c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042  c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685  c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528  c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956  C22.602,0.567,25.338,0.567,26.285,2.486z" />
+                            </svg>
+                        </button>
+                    </div>
+
+
+                    <div class="flex justify-between px-4 py-2 bg-none">
+                        <button class="bg-rose-800 text-white px-3 py-2 rounded-md"
+                            (click)="paymentDetails(booking.bookingRefId)">View
+                            Payment</button>
+                        <button (click)="downloadInvoice(booking.bookingRefId)"
+                            class="bg-blue-800 text-white px-3 py-2 rounded-md">Get
+                            Invoice</button>
+
+                        <a [href]="'user/details/' + booking.stationId"
+                            class="bg-violet-800 text-white px-3 py-2 rounded-md">View
+                            Station
+                            Details</a>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+
+        <div class="flex justify-center items-center"><svg *ngIf="!filteredBookings" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;display:block;" width="100px"
+                height="100px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                <path d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#36e30c" stroke="none">
+                    <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite"
+                        keyTimes="0;1" values="0 50 51;360 50 51"></animateTransform>
+                </path>
+            </svg></div>
+
+        <div *ngIf="!filteredBookings || filteredBookings.length === 0"
+            class="flex justify-center items-center h-screen">
+            <p class="text-gray-500">No bookings found.</p>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+<!-- Opening rating modal when click -->
+<div class="min-h-screen bg-black bg-opacity-50 py-6 flex flex-col justify-center sm:py-12 fixed inset-0 z-50"
+    *ngIf="showModal">
+    <div class="py-3 sm:max-w-xl sm:mx-auto">
+        <div class="bg-white min-w-1xl flex flex-col rounded-xl shadow-lg">
+            <div class="px-12 py-5">
+                <h2 class="text-gray-800 text-3xl font-semibold">Your opinion matters to us!</h2>
+            </div>
+            <div class="bg-gray-200 w-full flex flex-col items-center">
+                <div class="flex flex-col items-center py-6 space-y-3">
+                    <span class="text-md text-gray-800 text-wrap px-4">How was quality of the EvStation
+                        {{selectedBooking.stationId}}?</span>
+                    <div class="flex space-x-3">
+                        <svg *ngFor="let star of stars; let i = index" [class]="star.class"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                            (click)="rate(i + 1)">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                    <p>You rated {{ filledStars }}/5</p>
+                </div>
+                <div class="w-3/4 flex flex-col">
+                    <textarea rows="3" class="p-4 text-gray-500 rounded-xl resize-none"
+                        placeholder="Leave a message, if you want" [(ngModel)]="feedbackMsg"
+                        name="feedbackMsg"></textarea>
+                    <button (click)="rateNow(this.selectedBooking)"
+                        class="py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white">Rate
+                        now</button>
+                </div>
+            </div>
+            <div class="h-20 flex items-center justify-center">
+                <button type="button" (click)="toggleClose()" class="text-gray-600">Maybe later</button>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<!-- Payment Info View Modal -->
+<div class="fixed z-10 inset-0 overflow-y-auto" *ngIf="paymentData">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <!-- Background overlay -->
+        <div class="fixed inset-0 bg-black opacity-50 z-40" aria-hidden="true"></div>
+
+        <!-- Modal container -->
+        <div
+            class="fixed z-50  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:w-full xl:w-full w-[400px] lg:max-w-md pt-5 pb-4 overflow-hidden sm:rounded-lg sm:p-6 sm:mx-4 bg-white">
+            <div class="sm:flex sm:items-start">
+                <div
+                    class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"
+                        text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd"
+                        clip-rule="evenodd" viewBox="0 0 512 385.414">
+                        <path fill="#3B95D9" fill-rule="nonzero"
+                            d="M26.217 0h382.258c14.366 0 26.16 11.803 26.16 26.158V264.76c0 14.364-11.796 26.16-26.16 26.16H26.217c-14.384 0-26.16-11.776-26.16-26.16V26.158C.057 11.798 11.859 0 26.217 0z" />
+                        <path fill="#42A6F1"
+                            d="M26.216 7.674h382.26c10.166 0 18.484 8.356 18.484 18.484v238.603c0 10.128-8.356 18.483-18.484 18.483H26.216c-10.128 0-18.483-8.317-18.483-18.483V26.158c0-10.166 8.317-18.484 18.483-18.484z" />
+                        <path fill="#4D5471" d="M0 56.192h434.691v74.811H0z" />
+                        <path fill="#D54C3D" fill-rule="nonzero"
+                            d="M103.585 94.494H485.84c7.197 0 13.737 2.948 18.471 7.682l.47.515c4.467 4.71 7.219 11.051 7.219 17.961v238.602c0 14.364-11.796 26.16-26.16 26.16H103.585c-14.383 0-26.16-11.777-26.16-26.16V120.652c0-7.167 2.939-13.697 7.679-18.449l.049-.048c4.749-4.728 11.273-7.661 18.432-7.661z" />
+                        <path fill="#ED5444"
+                            d="M103.585 102.168H485.84c10.167 0 18.484 8.356 18.484 18.484v238.602c0 10.128-8.356 18.484-18.484 18.484H103.585c-10.128 0-18.484-8.317-18.484-18.484V120.652c0-10.167 8.317-18.484 18.484-18.484z" />
+                        <path fill="#F8D14A" fill-rule="nonzero"
+                            d="M126.406 283.827a8.33 8.33 0 110-16.661h167.77a8.33 8.33 0 010 16.661h-167.77zm242.263-26.394c12.433 0 23.464 5.995 30.363 15.254 6.9-9.259 17.932-15.254 30.367-15.254 20.9 0 37.845 16.944 37.845 37.844 0 20.902-16.945 37.846-37.845 37.846-12.435 0-23.467-5.997-30.367-15.256-6.899 9.259-17.93 15.256-30.363 15.256-20.903 0-37.846-16.944-37.846-37.846 0-20.9 16.943-37.844 37.846-37.844zm-242.263 65.959a8.331 8.331 0 010-16.661h126.509a8.332 8.332 0 010 16.661H126.406z" />
+                        <path fill="#DACD71"
+                            d="M139.602 153.639h56.914c7.258 0 13.197 5.939 13.197 13.197v2.883h-83.307v-2.883c0-7.258 5.938-13.197 13.196-13.197zm70.111 20.621v28.134h-25.844V174.26h25.844zm-30.384 28.134h-22.568V174.26h22.568v28.134zm-27.109 0h-25.814V174.26h25.814v28.134zm57.493 4.541v2.928c0 7.257-5.94 13.196-13.197 13.196h-56.914c-7.257 0-13.196-5.938-13.196-13.196v-2.928h83.307z" />
+                    </svg>
+                </div>
+                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                        Payment Details
+                    </h3>
+                    <div class="mt-2">
+                        <p class="text-sm text-gray-500">
+                            Please insure that your payment status is true /captured
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 sm:mt-4 sm:ml-10">
+                <form>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="col-span-1">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Payment Id</label>
+                            <p>{{paymentData.id}}</p>
+                        </div>
+
+                        <div class="col-span-1">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Entity</label>
+                            <p>{{paymentData.entity}}</p>
+                        </div>
+
+                        <div class="col-span-1">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Currency</label>
+                            <p>{{paymentData.currency}}</p>
+                        </div>
+
+                        <div class="col-span-1">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Amount</label>
+                            <p>{{formatCurrency(paymentData.amount)}}</p>
+                        </div>
+
+                        <div class="col-span-1">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Status</label>
+                            <p>{{paymentData.status}}</p>
+                        </div>
+
+                        <div class="col-span-1">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Order Id</label>
+                            <p>{{paymentData.order_id}}</p>
+                        </div>
+
+                        <div class="col-span-1">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Method</label>
+                            <p>{{paymentData.method}}</p>
+                        </div>
+
+                        <div class="col-span-1" *ngIf="paymentData.bank">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Bank</label>
+                            <p>{{paymentData.bank}}</p>
+                        </div>
+
+                        <div class="col-span-1" *ngIf="paymentData.card_id">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Card Id</label>
+                            <p>{{paymentData.card_id}}</p>
+                        </div>
+
+                        <div class="col-span-1" *ngIf="paymentData.email">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Email</label>
+                            <p>{{paymentData.email}}</p>
+                        </div>
+
+                        <div class="col-span-1" *ngIf="paymentData.contact">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Email</label>
+                            <p>{{paymentData.contact}}</p>
+                        </div>
+
+                        <div class="col-span-1" *ngIf="paymentData.acquirer_data.bank_transaction_id">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Transaction Id</label>
+                            <p>{{paymentData.acquirer_data.bank_transaction_id}}</p>
+                        </div>
+
+                        <div class="col-span-1" *ngIf="paymentData.created_at">
+                            <label for="date" class="block text-sm font-medium text-gray-700">Created At</label>
+                            <p>{{paymentData.created_at}}</p>
+                        </div>
+                    </div>
+
+
+                    <div class="mt-5 sm:mt-6 flex justify-between gap-2 mx-4">
+                        <button type="button" (click)="closeModal()"
+                            class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 sm:w-auto sm:text-sm">
+                            Close
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

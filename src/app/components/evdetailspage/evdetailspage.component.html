@@ -1,0 +1,231 @@
+<app-navbar></app-navbar>
+<main class="dark:bg-gray-900 bg-white">
+    <div *ngIf="station" class="flex flex-wrap px-3 pt-10 pb-20">
+        <!-- First Row -->
+        <div class="w-full md:w-1/2 p-4">
+            <img [src]="getProfileImageUrl(station.imageUrl)" alt="Station Image"
+                class="w-full object-contain  mb-4 dark:drop-shadow-lg rounded-md h-[300px]" />
+        </div>
+        <div class="w-full md:w-1/2 p-4">
+            <h2 class="text-4xl font-bold mb-2 dark:text-green-500">{{ station.title }}</h2>
+            <p class="text-gray-600 text-lg dark:text-gray-50">{{ station.description }}</p>
+            <p class="text-gray-600 text-lg dark:text-gray-50 py-2">{{ station.address }}</p>
+            <p class="text-gray-700 mt-2 dark:text-gray-200 py-2">Location: {{station.location.city}}, {{
+                station.location.state }}</p>
+            <p class="text-gray-700 dark:text-gray-200 text-2xl py-2"><span class="font-bold">Rs.</span> {{
+                station.rate }} / <span class="text-sm">per hour</span>
+            </p>
+            <div class="flex gap-2 items-center text-[20px]">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    class="w-6 h-6 text-orange-500" version="1.1" id="Capa_1" viewBox="0 0 47.94 47.94"
+                    xml:space="preserve">
+                    <path style="fill:#ff9100;"
+                        d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757  c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042  c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685  c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528  c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956  C22.602,0.567,25.338,0.567,26.285,2.486z" />
+                </svg>
+                <p>{{station.averageRating}}</p>
+            </div>
+            <div class="flex gap-3 mt-5">
+                <button [disabled]="openBookingModal" (click)="bookSlot(station)"
+                    class="text-white bg-green-500 px-6 py-3 rounded-full shadow-md dark:shadow-green-500 dark:drop-shadow-lg">Book
+                    Now</button>
+                <a href="tel:{{station.profile.mobile}}"
+                    class="text-white bg-sky-500 px-6 py-3 rounded-full shadow-md dark:shadow-sky-500 dark:drop-shadow-lg">Call
+                </a>
+            </div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="w-full md:w-1/2 p-4">
+            <google-map width="100%" height="400" [center]="center" [zoom]="zoom" *ngIf="markerPositions">
+                <map-marker #marker="mapMarker" *ngFor="let markerPosition of markerPositions"
+                    [position]="markerPosition"></map-marker>
+                <map-info-window>{{station.title}}</map-info-window>
+            </google-map>
+        </div>
+
+        <div class="w-full md:w-1/2 p-4">
+            <h3 class="text-3xl font-bold text-black dark:text-gray-50">Timing</h3>
+            <div *ngFor="let day of getDayOfWeek()">
+                <div class="mt-2">
+                    <h4 class="text-[18px] text-gray-900 dark:text-gray-300">{{ day }}</h4>
+                    <div class="grid gap-3 grid-cols-2 md:gap-5">
+                        <div>
+                            <label for="{{ day }}OpeningTime" class="text-[15px] dark:text-gray-400">Opening
+                                Time:</label>
+                            <!-- Input field for opening time -->
+                            <input type="time" id="{{ day }}OpeningTime" name="{{ day }}OpeningTime"
+                                [value]="formatTime(station.evTimings[day].openingTime)" readonly
+                                class="w-full shadow-1 rounded-md border-[1.5px] font-medium outline-none transition focus:border-blue-600 active:border-blue-800 disabled:cursor-default px-3 py-2" />
+                        </div>
+
+                        <div>
+                            <label for="{{ day }}ClosingTime" class="text-[15px] dark:text-gray-400">Closing
+                                Time:</label>
+                            <!-- Input field for closing time -->
+                            <input type="time" id="{{ day }}ClosingTime" name="{{ day }}ClosingTime" readonly
+                                [value]="formatTime(station.evTimings[day].closingTime)"
+                                class="w-full shadow-1 rounded-md border-[1.5px] font-medium outline-none transition focus:border-blue-600 active:border-blue-800 disabled:cursor-default px-3 py-2" />
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="fixed z-10 inset-0 overflow-y-auto" *ngIf="openBookingModal">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <!-- Background overlay -->
+            <div class="fixed inset-0 bg-black opacity-50 z-40" aria-hidden="true"></div>
+
+            <!-- Modal container -->
+            <div
+                class="fixed z-50  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4 pt-5 pb-4 overflow-hidden sm:rounded-lg sm:p-6 sm:mx-4 bg-white">
+                <div class="sm:flex sm:items-start">
+                    <div
+                        class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            EV Slot Booking
+                        </h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500">
+                                Please select a location, slot, date, time, and charging duration.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 sm:mt-4 sm:ml-10">
+                    <form>
+                        <div class="grid grid-cols-6 gap-6">
+                            <!-- Slot -->
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="slot" class="block text-sm font-medium text-gray-700">Slot</label>
+                                <select id="slot" name="slot" [(ngModel)]="selectedSlot"
+                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option value="">Select Slot</option>
+                                    <option value="slot-a">Slot A</option>
+                                    <option value="slot-b">Slot B</option>
+                                    <option value="slot-c">Slot C</option>
+                                    <option value="slot-d">Slot D</option>
+                                </select>
+                            </div>
+
+                            <!-- Date -->
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
+                                <input type="date" id="date" name="date" [(ngModel)]="selectedDate"
+                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            </div>
+
+                            <!-- Time -->
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="time" class="block text-sm font-medium text-gray-700">Time</label>
+                                <input type="time" id="time" name="time" [(ngModel)]="selectedTime"
+                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            </div>
+
+                            <!-- Charging Duration -->
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="duration" class="block text-sm font-medium text-gray-700">Charging
+                                    Duration
+                                    (hours)</label>
+
+                                <select id="duration" name="duration" [(ngModel)]="selectedDuration"
+                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option value="">Select Duration</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="mt-5 sm:mt-6 flex justify-between gap-2">
+                            <button type="button" (click)="makePayment()" [disabled]=""
+                                class="inline-flex justify-center w-full rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto sm:text-sm">
+                                Book Slot
+                            </button>
+
+                            <button type="button" (click)="closeModal()"
+                                class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 sm:w-auto sm:text-sm">
+                                Close
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <h3 class="text-2xl leading-6 pb-5 text-gray-800 text-center px-4 dark:text-green-600 font-extrabold">Ratings
+    </h3>
+    <div class="container mx-auto pt-10 pb-10 px-10" *ngIf="ratingdata !== null && ratingdata !== undefined">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div *ngFor="let rating of paginatedTestimonials"
+                class="bg-white shadow-lg border border-gray-300 rounded-lg p-4">
+
+                <!-- Feedback message -->
+                <div class="text-gray-700 mb-2 break-words">{{ rating?.feedbackMsg }}</div>
+
+                <!-- Rating  -->
+                <div class="flex gap-1">
+                    <span *ngFor="let star of getStars(rating.rating)">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path
+                                d="M10 1l2.821 5.468 6.088.887-4.396 4.284.988 6.081L10 15.126l-5.501 2.582.987-6.081-4.396-4.284 6.088-.887z" />
+                        </svg>
+                    </span>
+                    <p>{{ rating?.rating }}/5</p>
+                </div>
+
+                <!-- User details -->
+                <div class="text-gray-500">
+                    <div class="flex items-center gap-3">
+                        <img [src]="getProfileImageUrl(rating?.profileDetails?.profilepic)"
+                            class="w-10 h-10 rounded-full border border-gray-300" />
+                        <p>{{ rating?.profileDetails?.firstname }} {{ rating?.profileDetails?.lastname }}</p>
+                    </div>
+                </div>
+
+
+                <div class="text-gray-700 mb-2 break-words">{{ convertTimestampToReadable(rating?.createdAt)}}</div>
+            </div>
+        </div>
+
+
+        <!-- Pagination Controls -->
+        <div class="flex justify-center mt-6 mb-10">
+            <button class="pagination-btn" [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">
+                Previous
+            </button>
+            <button class="pagination-btn" [disabled]="endIndex >= ratingdata?.length"
+                (click)="onPageChange(currentPage + 1)">
+                Next
+            </button>
+        </div>
+
+    </div>
+
+    <div class="container mx-auto pt-10 pb-10 px-10" *ngIf="ratingdata == null && ratingdata == undefined">
+        <p class="text-gay-400">No Ratings Found</p>
+    </div>
+
+
+</main>
+
+<app-footer></app-footer>

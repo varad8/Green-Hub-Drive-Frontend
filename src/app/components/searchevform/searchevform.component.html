@@ -1,0 +1,201 @@
+<main class="ev-main">
+    <div class="ev-search">
+        <hr class="divider" />
+        <div class="ev-search-container">
+            <form class="flex gap-2">
+                <!-- Location Select -->
+                <div class="ev-item-container">
+                    <label for="location" class="text-gray-600">Location</label>
+
+                    <div class="ev-items"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-500">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                        </svg>
+                        <select id="location" (change)="onCityChange($event)" name="location"
+                            class="p-2 border border-gray-300 rounded-md w-40">
+                            <!-- Add your location options here -->
+                            <option [value]="selectedCityName || undefined" disabled selected>
+                                {{ selectedCityName ? selectedCityName : 'Choose your city' }}
+                            </option>
+                            <option *ngFor="let city of citiesapiData" [value]="city.name">{{ city.name }}
+                            </option>
+
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- Select Slot -->
+                <div class="ev-item-container">
+                    <label for="slots" class="text-gray-600">Slots</label>
+                    <div class="ev-items"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-500">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                        </svg>
+
+                        <select id="slots" name="slots" [(ngModel)]="selectedSlot"
+                            class="p-2 border border-gray-300 rounded-md">
+                            <!-- Add your location options here -->
+                            <option value="slot-a">Type A</option>
+                            <option value="slot-b">Type B</option>
+                            <option value="slot-c">Type C</option>
+                            <option value="slot-d">Type D</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- Selected Hours -->
+                <div class="ev-item-container">
+                    <label for="location" class="text-gray-600">Select hours</label>
+
+                    <div class="ev-items"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-500">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                        </svg>
+                        <select name="hours" id="hours" [(ngModel)]="selectedHours"
+                            class="p-2 border border-gray-300 rounded-md w-40">
+                            <option disabled>Select hours</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+
+                        </select>
+                    </div>
+
+                </div>
+
+
+
+
+                <!-- Select Date -->
+                <div class="ev-item-container">
+                    <label for="date" class="text-gray-600">Date</label>
+                    <div class="ev-items">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6 text-green-500">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                        </svg>
+
+
+                        <input type="date" id="date" [(ngModel)]="selectedDate" name="date"
+                            class="p-2 border border-gray-300 rounded-md" />
+                    </div>
+
+                </div>
+
+                <!-- Select Time -->
+                <div class="ev-item-container">
+                    <label for="time" class="text-gray-600">Time</label>
+                    <div class="ev-items">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6 text-green-500">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+
+
+                        <input type="time" [(ngModel)]="selectedTime" id="time" name="time"
+                            class="p-2 border border-gray-300 rounded-md" />
+                    </div>
+
+                </div>
+
+                <div class="ev-item-container justify-center items-center">
+                    <label for="search" class="text-gray-600">&nbsp;</label>
+                    <div class="ev-items">
+                        <button (click)="onSearch(this.selectedCityName,this.selectedCityState)" class="search-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                            Search</button>
+                    </div>
+
+                </div>
+                <!-- Search Button -->
+
+            </form>
+        </div>
+    </div>
+</main>
+
+
+<!-- Slot Availability SHowing modal -->
+
+<div class="fixed z-10 inset-0 overflow-hidden" *ngIf="showModal">
+    <div class="flex items-center justify-center min-h-screen  px-4 mt-2 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity" aria-hidden="true" (click)="closeModal()">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+
+
+        <div class="inline-block align-middle bg-white rounded-lg overflow-hidden shadow-xl transform transition-all  sm:max-w-lg sm:w-full"
+            role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <div class="flex py-2 items-center gap-2 leading-6 font-medium text-gray-900" id="modal-headline">
+                        <div class="flex items-center rounded-full bg-green-100">
+                            <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <div>EV Stations</div>
+                    </div>
+
+                    <div class="h-100 overflow-auto">
+                        <div class="mt-3 border   border-gray-300 p-4 rounded-md"
+                            *ngFor="let suggestion of timeSuggestion">
+                            <div class="flex flex-col text-left">
+                                <div>
+                                    <img [src]="getProfileImageUrl(suggestion.station.imageUrl)"
+                                        class="w-full bg-gray-200 rounded-md h-[150px] object-center"
+                                        alt="station profile" />
+                                </div>
+                                <div class="mt-3">
+                                    <h5 class="text-sm text-gray-500 font-bold">Title: {{ suggestion.station.title }}
+                                    </h5>
+                                    <p class="text-sm text-gray-500">Station ID: {{ suggestion.station.id }}</p>
+                                    <p class="text-sm text-gray-500">Price : {{ suggestion.station.rate }} /per hr.</p>
+                                </div>
+                            </div>
+
+                            <!-- Showing Slots Available timing map here -->
+                            <div class="flex flex-wrap gap-2 mt-2 mb-2">
+                                <span *ngFor="let slot of suggestion.suggestions"
+                                    class="bg-green-600 text-white rounded-sm p-1">
+                                    <button
+                                        (click)="selectedSlotByUser(slot.start,slot.end,suggestion.station.userid,suggestion.slot,suggestion.hours,this.selectedDate)">{{
+                                        slot.start }} - {{ slot.end }}</button>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button type="button" (click)="closeModal()"
+                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

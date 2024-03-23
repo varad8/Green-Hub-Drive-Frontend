@@ -1,0 +1,82 @@
+.evfeature {
+  @apply relative flex items-center bg-white  px-4 py-6 justify-center text-center dark:bg-gray-900;
+}
+.evfeature-main {
+  @apply absolute inset-0 flex flex-col items-center justify-center;
+}
+.evtitle {
+  @apply text-3xl font-bold text-green-500 mb-2;
+}
+.ev-container {
+  @apply relative w-full h-96 flex items-center justify-center;
+}
+.ev-top-left {
+  @apply absolute  bg-white dark:bg-gray-800 top-0 left-0 border-2 p-4 rounded-md w-96 hover:bg-gray-200 dark:hover:bg-amber-500 shadow-lg drop-shadow-lg;
+  @apply border-2 border-slate-200 dark:shadow-amber-200 dark:border-amber-400  drop-shadow-lg;
+}
+.ev-top-right {
+  @apply absolute  bg-white dark:bg-gray-800 top-0 right-0 border-2 p-4 rounded-md w-96 hover:bg-gray-200 dark:hover:bg-amber-500  shadow-lg;
+  @apply border-2 border-slate-200 dark:shadow-amber-200 dark:border-amber-400  drop-shadow-lg;
+}
+.ev-bottom-left {
+  @apply absolute  bg-white dark:bg-gray-800 bottom-0  left-0 border-2 p-4 rounded-md w-96 hover:bg-gray-200 dark:hover:bg-amber-500  shadow-lg;
+  @apply border-2 border-slate-200 dark:shadow-amber-200 dark:border-amber-400 drop-shadow-lg;
+}
+.ev-bottom-right {
+  @apply absolute  bg-white dark:bg-gray-800 bottom-0  right-0 border-2 p-4 rounded-md w-96 hover:bg-gray-200  dark:hover:bg-amber-500  shadow-lg;
+  @apply border-2 border-slate-200 dark:shadow-amber-200 dark:border-amber-400  drop-shadow-lg;
+}
+.ev-text {
+  @apply dark:text-gray-200 text-gray-700;
+}
+
+@media (max-width: 768px) {
+  /* Adjust styles for smaller screens */
+
+  .evfeature {
+    flex-direction: column;
+  }
+
+  .ev-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .evfeature-main {
+    display: none;
+  }
+  .ev-title-small {
+    display: block;
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+
+  .ev-top-left,
+  .ev-top-right,
+  .ev-bottom-left,
+  .ev-bottom-right {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Adjust styles for larger screens */
+  .ev-container {
+    flex-direction: row;
+    height: 500px;
+    align-items: stretch;
+  }
+
+  .ev-title-small {
+    display: none;
+  }
+
+  .ev-top-left,
+  .ev-top-right,
+  .ev-bottom-left,
+  .ev-bottom-right {
+    width: 30%;
+  }
+}

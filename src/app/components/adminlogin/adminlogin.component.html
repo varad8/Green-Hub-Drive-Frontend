@@ -1,0 +1,89 @@
+<section class="flex min-h-screen">
+    <main class="w-96 bg-green-700 p-7 space-y-5 hidden md:block">
+        <header>
+            <nav class="p-3">
+                <div class="flex gap-2 items-center">
+                    <img src="../../../assets/logo.png" alt="EvGlob" class="object-cover w-8 h-8" />
+                    <h4 style="font-family: 'montserrat regular';" class="text-xl text-white font-normal uppercase">
+                        Green Hub Drive
+                    </h4>
+                </div>
+            </nav>
+        </header>
+
+        <div class="p-3 my7 space-y-6">
+
+            <h1 style="font-family: 'montserrat regular';" class="text-2xl  text-white font-semibold">
+                State-of-the-Art Charging Infrastructure
+
+            </h1>
+
+            <p class="text-white text-sm" style="font-family: 'inter';">
+                Our state-of-the-art charging infrastructure is designed with your convenience in mind. Whether you're a
+                daily commuter,
+                a business owner, or an electric vehicle enthusiast, our station offers a range of charging solutions to
+                meet your
+                specific needs. Fast and reliable charging is the cornerstone of our commitment to making electric
+                vehicle ownership
+                hassle-free.
+            </p>
+        </div>
+
+        <div>
+            <img src="../../../assets/future_car.png" alt="EvGlob">
+        </div>
+    </main>
+
+
+    <main class="flex-auto bg-slate-900 space-y-7 p-2">
+        <div class="flex flex-col gap-3 items-center justify-center p-5">
+            <img src="../../../assets/logo.png" alt="Green Hub Drive" class="object-cover w-10 h-10" />
+            <h4 style="font-family: 'montserrat regular';" class="text-3xl font-black text-green-500">
+                Admin Log in
+            </h4>
+        </div>
+
+        <section class="flex flex-col items-center justify-center">
+            <form class="space-y-4">
+                <div class="email">
+                    <div class="relative mt-1">
+                        <input type="email" id="emailInp"
+                            class="text-black p-4 w-80 h-10 rounded pl-10 text-sm focus:outline-none border border-green-400 focus:border-green-400 focus:border-2"
+                            placeholder="email address" name="email" [(ngModel)]="email" required>
+
+                        <svg class="w-4 h-4 absolute top-0 m-3 text-gray-300" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="password">
+                    <div class="relative mt-1 mb-2">
+                        <input type="password" id="passwordInp"
+                            class="text-black p-4 w-80 h-10 rounded pl-10 text-sm focus:outline-none border border-green-400 focus:border-green-400 focus:border-2 font-light"
+                            placeholder="password" required [(ngModel)]="password" name="password">
+                        <svg class="w-4 h-4 absolute top-0 m-3 text-gray-300" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <button class="focus:outline-none bg-green-600  w-80 h-9 text-white rounded" (click)="adminLogin()">Log
+                    in</button>
+            </form>
+
+
+        </section>
+
+
+
+    </main>
+
+
+</section>

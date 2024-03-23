@@ -1,0 +1,129 @@
+<h2 class="text-title-md2 font-bold mb-3 text-black dark:text-white">
+    Profile Information
+</h2>
+
+<div class="flex justify-center items-center"><svg *ngIf="!adminProfile" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;display:block;" width="100px" height="100px"
+        viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <path d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#36e30c" stroke="none">
+            <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1"
+                values="0 50 51;360 50 51"></animateTransform>
+        </path>
+    </svg></div>
+
+<div *ngIf="adminProfile" class="grid grid-cols-1 gap-9 sm:grid-cols-2 ">
+    <div class=" flex flex-col gap-9">
+        <!-- Profile Information -->
+        <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div class="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
+                <h3 class="font-medium text-black dark:text-white">
+                    Personal Information
+                </h3>
+            </div>
+            <div class="flex flex-col gap-5.5 p-6.5">
+
+                <div class="mt-5 flex items-center justify-center">
+                    <img [src]="getProfileImageUrl(adminProfile.profilepic)"
+                        class="rounded-full w-20 h-20 border border-stroke">
+                </div>
+
+                <!-- For First Name and Last Name  -->
+                <div class="mt-5 grid md:grid-cols-2 md:gap-6">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" [(ngModel)]="adminProfile.firstName" class="floating-input peer" disabled
+                            name="firstname" id="firstname" />
+                        <label for="firstname"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First
+                            Name</label>
+                    </div>
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input [(ngModel)]="adminProfile.lastName" type="text" class="floating-input peer"
+                            placeholder=" " disabled name="lastname" id="lastname" />
+                        <label for="lastname"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last
+                            Name</label>
+                    </div>
+                </div>
+
+                <!-- For Email and Mobile -->
+                <div class="mt-5 grid md:grid-cols-2 md:gap-6">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="email" [(ngModel)]="adminProfile.email" class="floating-input peer" disabled
+                            name="email" id="email" />
+                        <label for="email"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
+                    </div>
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input [(ngModel)]="adminProfile.mobileNo" type="tel" class="floating-input peer"
+                            placeholder=" " disabled name="mobile" id="mobile" />
+                        <label for="mobile"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Mobile
+                            No</label>
+                    </div>
+                </div>
+
+                <!-- For DOB/Date of Joining / userid -->
+                <div class="mt-5 grid gap-2 grid-cols-3 md:gap-6">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" [(ngModel)]="adminProfile.dob" class="floating-input peer" disabled
+                            name="dob" id="dob" />
+                        <label for="dob"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Date
+                            of Birth</label>
+                    </div>
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input [(ngModel)]="adminProfile.dateOfCreation" type="text" class="floating-input peer"
+                            placeholder=" " disabled name="dateofjoining" id="dateofjoining" />
+                        <label for="dateofjoining"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Date
+                            of Joining</label>
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input [(ngModel)]="adminProfile.adminId" type="text" class="floating-input peer"
+                            placeholder=" " disabled name="userid" id="userid" />
+                        <label for="userid"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">UID</label>
+                    </div>
+                </div>
+
+                <!-- Account Type and registred as -->
+                <div class="mt-5 grid gap-2 grid-cols-2 md:gap-6">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" [(ngModel)]="adminProfile.accountType" class="floating-input peer" disabled
+                            name="accountType" id="accountType" />
+                        <label for="accountType"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Account
+                            Type</label>
+                    </div>
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input [(ngModel)]="adminProfile.registeredAs" type="text" class="floating-input peer"
+                            placeholder=" " disabled name="updatedAt" id="updatedAt" />
+                        <label for="updatedAt"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Registred
+                            As</label>
+                    </div>
+                </div>
+
+
+                <!-- Address -->
+                <div class="mt-5 grid gap-2 grid-cols-2 md:gap-6">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" [(ngModel)]="adminProfile.address" class="floating-input peer" disabled
+                            name="accountType" id="accountType" />
+                        <label for="accountType"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Address</label>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</div>

@@ -1,0 +1,8 @@
+.pagination-btn {
+  @apply px-4 py-2 mx-2 bg-green-600 text-white rounded-md shadow-md drop-shadow-lg shadow-white;
+  @apply dark:shadow-green-400;
+}
+.testimonial-card {
+  @apply w-full bg-slate-50 relative flex flex-col items-center hover:bg-green-700 cursor-pointer shadow-md md:p-12 p-6;
+  @apply drop-shadow-lg dark:shadow-green-400;
+}

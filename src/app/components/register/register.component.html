@@ -1,0 +1,41 @@
+<div class="bg-userlog bg-cover bg-center">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="px-8 py-6 mx-4 mt-4 text-left bg-white shadow-lg md:w-1/3 lg:w-1/4">
+            <h3 class="text-2xl font-bold text-center">Sign Up to your account</h3>
+            <form class="mt-4">
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-700" for="email">Email</label>
+                    <input id="email" name="email" [(ngModel)]="email"
+                        class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40"
+                        type="email" placeholder="name@example.com">
+                </div>
+                <div class="mt-4">
+                    <label class="block mb-2 text-sm font-medium text-gray-700" for="password">Password</label>
+                    <input id="password" name="password" [(ngModel)]="password"
+                        class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40"
+                        type="password" placeholder="••••••••">
+                </div>
+
+                <div class="mt-4">
+                    <label class="block mb-2 text-sm font-medium text-gray-700" for="password">Confirm Password</label>
+                    <input id="confirmpassword" name="confirmpassword" [(ngModel)]="confirmpassword"
+                        class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40"
+                        type="password" placeholder="••••••••">
+                </div>
+
+
+
+                <div class="mt-6">
+                    <button type="button" (click)="userRegister()"
+                        class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-600 rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                        Sign in
+                    </button>
+                </div>
+                <div class="mt-6 text-center">
+                    Do have an account? <a routerLink="/login/user" class="text-blue-600 hover:underline">Sign
+                        in</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

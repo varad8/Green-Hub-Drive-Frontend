@@ -1,0 +1,54 @@
+<div class="flex-col flex h-screen gap-3">
+
+    <!-- Filter and search controls -->
+    <h3 class="text-2xl text-gray-500 dark:text-white font-serif">Notifications</h3>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+        <div *ngFor="let notification of notificationdata"
+            class="max-w-sm rounded overflow-hidden shadow-lg bg-white m-4">
+            <a [href]="'user/details/' + notification.stationuserid"
+                class="rounded-full text-black flex justify-end px-1 py-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                </svg>
+            </a>
+
+            <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2 text-wrap break-words">{{ notification.notificationTitle }}</div>
+                <p class="text-gray-700 text-base text-wrap break-words">{{ notification.notificationMessage }}</p>
+            </div>
+
+            <div class="border-b-gray-100 border w-full"></div>
+
+            <!-- Display EV station details if available -->
+            <div *ngIf="notification.evStationDetails" class="px-6 pt-4 pb-2">
+                <div class="flex gap-3">
+
+                    <img class="rounded-full w-10 h-10"
+                        [src]="getProfileImageUrl(notification.evStationDetails.profile.profilepic)"
+                        alt="Profile Pic" />
+                    <div>
+                        <h3>Ev Name :- {{notification.evStationDetails.title}}</h3>
+                        <h3>Ev Email :- {{notification.evStationDetails.profile.email}}</h3>
+                        <h3>Ev Mobile :- {{notification.evStationDetails.profile.mobile}}</h3>
+                    </div>
+                </div>
+
+
+                <div class="flex gap-2 mt-3 mb-2">
+                    <span
+                        class="inline-block bg-rose-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                        EV Station ID: {{ notification.evStationDetails.evid }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!notificationdata || notificationdata.length === 0" class="flex justify-center items-center">
+        <p class="text-gray-500">No bookings found.</p>
+    </div>
+
+</div>

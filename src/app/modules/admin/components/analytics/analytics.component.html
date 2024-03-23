@@ -1,0 +1,96 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Todays booking -->
+    <div class="bg-white rounded-lg shadow-md">
+        <div
+            class="flex items-center gap-2 drop-shadow-2 rounded-lg border-gray-200 border dark:border-none dark:bg-slate-700">
+            <div class="font-serif text-[30px] bg-green-600 p-3 rounded-lg text-white">
+                {{countdata.todaysBookingCount}}
+            </div>
+            <div>
+                <h2 class="text-xl font-bold dark:text-gray-100">Todays bookings</h2>
+                <p class="text-gray-600 dark:text-gray-200">Number of bookings todays</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Booking count -->
+    <div class="bg-white rounded-lg shadow-md">
+        <div
+            class="flex items-center gap-2 drop-shadow-2 rounded-lg border-gray-200 border dark:border-none dark:bg-slate-700">
+            <div class="font-serif text-[30px] bg-green-600 p-3 rounded-lg text-white">
+                {{countdata.totalBookingCount}}
+            </div>
+            <div>
+                <h2 class="text-xl font-bold dark:text-gray-100">Booking</h2>
+                <p class="text-gray-600 dark:text-gray-200">Number of bookings all time</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visited-->
+    <div class="bg-white rounded-lg shadow-md">
+        <div
+            class="flex items-center gap-2 drop-shadow-2 rounded-lg border-gray-200 border dark:border-none dark:bg-slate-700">
+            <div class="font-serif text-[30px] bg-green-600 p-3 rounded-lg text-white">
+                {{countdata.visitedCount}}
+            </div>
+            <div>
+                <h2 class="text-xl font-bold dark:text-gray-100">Visited</h2>
+                <p class="text-gray-600 dark:text-gray-200">Number of visited users</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Not Visited -->
+    <div class="bg-white rounded-lg shadow-md">
+        <div
+            class="flex items-center gap-2 drop-shadow-2 rounded-lg border-gray-200 border dark:border-none dark:bg-slate-700">
+            <div class="font-serif text-[30px] bg-green-600 p-3 rounded-lg text-white">
+                {{countdata.notVisitedCount}}
+            </div>
+            <div>
+                <h2 class="text-xl font-bold dark:text-gray-100">Not Visited</h2>
+                <p class="text-gray-600 dark:text-gray-200">Number of not visited users</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="border-b border-gray-300 mt-3 mb-3 dark:border-green-200"></div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-2">
+    <div
+        class="lg:h-[400px] xl:h-[400px] h-auto w-auto shadow-md border border-gray-300 bg-white px-4 py-3 rounded-md ">
+        <canvas id="canvas3">{{bchart}}</canvas>
+    </div>
+
+    <div
+        class="lg:h-[400px] xl:h-[400px] h-auto w-auto shadow-md border border-gray-300 bg-white px-4 py-3 rounded-md ">
+        <canvas id="canvas4">{{bchart1}}</canvas>
+
+    </div>
+</div>
+
+
+
+<h4 class="text-2xl dark:text-green-300 font-bold mt-5 mb-3 text-gray-500">Stats</h4>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-2">
+    <div>
+        <h2 class="text-gray-600 text-2xl mb-3 mt-3">Bookings</h2>
+        <div
+            class="lg:h-[400px] xl:h-[400px] h-auto w-auto shadow-md border border-gray-300 bg-white px-4 py-3 rounded-md ">
+            <canvas id="canvas">{{chart}}</canvas>
+        </div>
+    </div>
+
+    <div>
+        <h2 class="text-gray-600 text-2xl mb-3 mt-3">Payments</h2>
+        <div
+            class="lg:h-[400px] xl:h-[400px] h-auto w-auto shadow-md border border-gray-300 bg-white px-4 py-3 rounded-md ">
+            <canvas id="canvas2">{{pchart}}</canvas>
+        </div>
+    </div>
+</div>

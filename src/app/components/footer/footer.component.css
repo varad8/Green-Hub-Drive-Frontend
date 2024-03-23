@@ -1,0 +1,28 @@
+.footer-main {
+  @apply bg-no-repeat object-cover py-4 text-gray-200;
+}
+.footer-sub-main {
+  @apply container px-4 mx-auto;
+}
+.footer-content {
+  @apply -mx-4 flex flex-wrap justify-between;
+}
+.footer-items {
+  @apply px-4 my-4 w-full xl:w-1/5;
+}
+.footer-icon {
+  @apply flex gap-2 items-center;
+}
+.footer-heading {
+  @apply inline-block text-2xl pb-4 mb-4 border-b-4 border-green-600;
+}
+
+.footer-items-reg {
+  @apply px-4 my-4 w-full sm:w-auto;
+}
+.footer-link {
+  @apply inline-flex items-center justify-center h-8 w-8 border border-gray-100 rounded-full mr-1 hover:text-blue-400 hover:border-blue-400;
+}
+.footer-copyright {
+  @apply bg-green-600 py-4 text-gray-50 shadow drop-shadow-sm;
+}
