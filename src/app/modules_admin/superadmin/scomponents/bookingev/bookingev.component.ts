@@ -264,18 +264,18 @@ export class BookingevComponent {
   }
 
   //Update to Visiting status
-  updateStatusToVisited(bookingData: any) {
-    this.evowner
-      .updateBookingStatusByOrderId(bookingData.bookingRefId)
-      .subscribe(
-        (response) => {
-          alert(response.message);
-        },
-        (error) => {
-          alert(error.error.error);
-        }
-      );
-  }
+  // updateStatusToVisited(bookingData: any) {
+  //   this.evowner
+  //     .updateBookingStatusByOrderId(bookingData.bookingRefId)
+  //     .subscribe(
+  //       (response) => {
+  //         alert(response.message);
+  //       },
+  //       (error) => {
+  //         alert(error.error.error);
+  //       }
+  //     );
+  // }
 
   viewUserProfile(userProfile: any) {
     this.selectedProfile = userProfile;

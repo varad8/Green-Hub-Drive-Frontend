@@ -102,12 +102,31 @@ export class SearchevformComponent {
     // Example: Navigate to the details page with the selected slot and station ID
     this.router.navigate(['/evstation', stationId], {
       queryParams: {
-        timing: `${startTime}`,
+        timing: `${this.convertTo24HourFormat(startTime)}`,
         slot: slot,
         hours: hours,
         date: date,
       },
     });
+  }
+
+  convertTo24HourFormat(time12Hour: string): string {
+    const [timePart, periodPart] = time12Hour.split(' ');
+    const [hoursPart, minutesPart] = timePart.split(':');
+
+    let hours = parseInt(hoursPart, 10);
+    const minutes = parseInt(minutesPart, 10);
+
+    if (periodPart.toLowerCase() === 'pm' && hours < 12) {
+      hours += 12;
+    } else if (periodPart.toLowerCase() === 'am' && hours === 12) {
+      hours = 0;
+    }
+
+    const hoursString = String(hours).padStart(2, '0');
+    const minutesString = String(minutes).padStart(2, '0');
+
+    return `${hoursString}:${minutesString}`;
   }
 
   //Get Image

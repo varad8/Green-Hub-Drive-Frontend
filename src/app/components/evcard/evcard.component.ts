@@ -52,11 +52,11 @@ export class EvcardComponent {
   get visiblestation() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    return this.station.slice(startIndex, endIndex);
+    return this.station?.slice(startIndex, endIndex);
   }
 
   totalPages(): number {
-    return Math.ceil(this.station.length / this.pageSize);
+    return Math.ceil(this.station?.length / this.pageSize);
   }
 
   nextPage() {
