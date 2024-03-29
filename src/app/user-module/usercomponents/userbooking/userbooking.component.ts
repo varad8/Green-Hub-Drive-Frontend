@@ -287,6 +287,7 @@ export class UserbookingComponent {
       this.userservice.saveRating(ratingData).subscribe(
         (response) => {
           alert(response.message);
+          this.toggleClose();
           console.log('Rating saved successfully:', response);
         },
         (error) => {

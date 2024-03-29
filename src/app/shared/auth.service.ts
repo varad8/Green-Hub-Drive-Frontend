@@ -101,6 +101,11 @@ export class AuthService {
     this.router.navigate(['login/user']);
   }
 
+  getTestimonials(): Observable<any> {
+    const url = `${this.baseUrl}/user/ratings/all`;
+    return this.http.get<any>(url);
+  }
+
   /***************************[EV Admin Authentication]*************************** */
 
   //register new ev admin  using email and password

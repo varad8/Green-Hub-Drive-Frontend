@@ -74,8 +74,12 @@ export class SearchevformComponent {
     // Call the checkAvailability method from your service
     this.userservice.checkAvailability(requestData).subscribe(
       (response) => {
-        this.timeSuggestion = response;
-        this.showModal = true;
+        if (response.length === 0) {
+          alert('No station found according to your location or slot');
+        } else {
+          this.timeSuggestion = response;
+          this.showModal = true;
+        }
       },
       (error) => {
         alert(error.error.error);

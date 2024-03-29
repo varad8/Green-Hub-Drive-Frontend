@@ -4,7 +4,7 @@
         class="lg:text-5xl md:text-4xl text-2xl font-semibold px-4 leading-10 text-gray-800 dark:text-gray-50 mt-6 text-center">
         What our
         client says</h1>
-    <div
+    <div *ngIf="paginatedTestimonials"
         class="container mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:px-20 px-10 py-20 gap-6">
         <div *ngFor="let testimonial of paginatedTestimonials">
             <div class="group testimonial-card">
@@ -25,7 +25,7 @@
                             </clipPath>
                         </defs>
                     </svg>
-                    <p class="xl:w-80 text-base leading-normal text-center mt-4">{{ testimonial.text }}</p>
+                    <p class="xl:w-80 text-base leading-normal text-center mt-4">{{ testimonial.feedbackMsg }}</p>
                 </div>
                 <div class="text-white group-hover:text-green-700 absolute bottom-0 -mb-6">
                     <svg width="34" height="28" viewBox="0 0 34 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,12 +57,18 @@
                 </div>
             </div>
             <div class="flex flex-col items-center justify-center mt-10">
-                <img [src]="testimonial.image" [alt]="testimonial.name" class="w-12 h-12" />
-                <p class="text-base font-semibold leading-4 my-2 text-gray-800 dark:text-slate-100">{{testimonial.name}}
+                <img [src]="getProfileImageUrl(testimonial.profile?.profilepic)" [alt]=" testimonial?.firstname"
+                    class=" w-12 h-12" />
+                <p class="text-base font-semibold leading-4 my-2 text-gray-800 dark:text-slate-100">
+                    {{testimonial?.profile?.firstname}} {{testimonial.profile?.lastname}}
                 </p>
-                <p class="text-base leading-4 text-center text-gray-600 dark:text-slate-300">{{testimonial.role}}</p>
+                <p class="text-base leading-4 text-center text-gray-600 dark:text-slate-300">User</p>
             </div>
         </div>
+    </div>
+
+    <div *ngIf="!paginatedTestimonials">
+        <p>Testimonials not found</p>
     </div>
 
 

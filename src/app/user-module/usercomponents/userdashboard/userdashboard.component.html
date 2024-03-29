@@ -14,17 +14,17 @@
         </div>
 
         <!-- Profile  -->
-        <div class="flex flex-col justify-start items-center rounded-md mb-3 gap-2 bg-slate-700 px-3 py-3">
+        <div class="flex flex-col justify-start items-center rounded-md mb-2 gap-2 bg-slate-700 px-3 py-3">
             <div class="flex justify-center items-center">
                 <img [src]="getProfileImageUrl(userProfile?.profilepic)"
-                    class="w-14 h-14 border rounded-full object-fill" [alt]="userProfile?.firstname" />
+                    class="w-10 h-10 border rounded-full object-fill" [alt]="userProfile?.firstname" />
             </div>
             <div class="flex flex-col flex-wrap">
-                <h3 class="text-white items-center text-lg">{{userProfile?.firstname}}
+                <h3 class="text-white items-center text-[14px]">{{userProfile?.firstname}}
                     {{userProfile?.lastname}}</h3>
-                <p class="text-sm">AD ID : {{userProfile?.userid}}</p>
-                <p class="text-sm">AC Type : {{userProfile?.accountType}}</p>
-                <p class="text-sm">Email : {{userProfile?.email}}</p>
+                <p class="text-[10px]">AD ID : {{userProfile?.userid}}</p>
+                <p class="text-[10px]">AC Type : {{userProfile?.accountType}}</p>
+                <p class="text-[10px]">Email : {{userProfile?.email}}</p>
             </div>
         </div>
 
@@ -160,7 +160,7 @@
         </button>
     </div>
 
-    <div class="flex flex-col h-screen w-full">
+    <div class="flex flex-col h-full w-full">
         <!-- Header -->
         <header class="bg-slate-800 text-white p-4">
             <!-- Header content goes here -->
@@ -178,10 +178,14 @@
             </button>
 
             <div class="flex justify-between items-center">
-                <div class="lg:flex xl:flex gap-3 items-center hidden lg:block xl:block">
-                    <img src="../../../../../assets/logo.png" alt="logo" class="w-10 h-10" />
-                    <p class="text-xl font-serif">Green Hub Drive</p>
-                </div>
+                <a routerLink="/">
+                    <div class="lg:flex xl:flex gap-3 items-center hidden lg:block xl:block">
+
+                        <img src="../../../../../assets/logo.png" alt="logo" class="w-10 h-10" />
+                        <p class="text-xl font-serif">Green Hub Drive</p>
+
+                    </div>
+                </a>
                 <div class="hidden lg:block xl:block">
                     <img [src]="getProfileImageUrl(userProfile?.profilepic)"
                         class="rounded-full drop-shadow-md border border-slate-300 w-10 h-10"

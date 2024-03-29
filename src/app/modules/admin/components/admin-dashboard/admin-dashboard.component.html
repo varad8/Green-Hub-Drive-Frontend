@@ -17,15 +17,15 @@
         <div class="flex flex-col justify-start items-center rounded-md mb-3 gap-2 bg-slate-700 px-3 py-3">
             <div class="flex justify-center items-center">
                 <img [src]="getProfileImageUrl(evAdminProfile?.profile?.profilepic)"
-                    class="w-14 h-14 border rounded-full object-fill" [alt]="evAdminProfile?.profile?.firstname" />
+                    class="w-10 h-10 border rounded-full object-fill" [alt]="evAdminProfile?.profile?.firstname" />
             </div>
             <div class="flex flex-col flex-wrap">
-                <h3 class="text-white items-center text-lg">{{evAdminProfile?.profile?.firstname}}
+                <h3 class="text-white items-center text-[14px]">{{evAdminProfile?.profile?.firstname}}
                     {{evAdminProfile?.profile?.lastname}}</h3>
-                <p class="text-sm">Station ID : {{evAdminProfile?.evid}}</p>
-                <p class="text-sm">UID : {{evAdminProfile?.userid}}</p>
-                <p class="text-sm">ID : {{evAdminProfile?.id}}</p>
-                <p class="text-sm">Email : {{evAdminProfile?.profile?.email}}</p>
+                <p class="text-[10px]">Station ID : {{evAdminProfile?.evid}}</p>
+                <p class="text-[10px]">UID : {{evAdminProfile?.userid}}</p>
+                <p class="text-[10px]">ID : {{evAdminProfile?.id}}</p>
+                <p class="text-[10px]">Email : {{evAdminProfile?.profile?.email}}</p>
             </div>
         </div>
 
@@ -197,10 +197,12 @@
             </button>
 
             <div class="flex justify-between items-center">
-                <div class="lg:flex xl:flex gap-3 items-center hidden lg:block xl:block">
-                    <img src="../../../../../assets/logo.png" alt="logo" class="w-10 h-10" />
-                    <p class="text-xl font-serif">Green Hub Drive</p>
-                </div>
+                <a routerLink="/">
+                    <div class="lg:flex xl:flex gap-3 items-center hidden lg:block xl:block">
+                        <img src="../../../../../assets/logo.png" alt="logo" class="w-10 h-10" />
+                        <p class="text-xl font-serif">Green Hub Drive</p>
+                    </div>
+                </a>
                 <div class="hidden lg:block xl:block">
                     <img [src]="getProfileImageUrl(evAdminProfile?.profile?.profilepic)"
                         class="rounded-full drop-shadow-md border border-slate-300 w-10 h-10"

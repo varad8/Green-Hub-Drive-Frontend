@@ -25,10 +25,10 @@ export class EvcardComponent {
           (station) => station.accountStatus?.status === 'ACTIVE'
         );
 
-        console.log(this.station);
-
         this.station.forEach((station) => {
           this.getRatings(station);
+
+          console.log(station);
         });
       },
       (error) => {
@@ -44,7 +44,8 @@ export class EvcardComponent {
         station.averageRating = data.averageRating;
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
+        station.averageRating = 0;
       }
     );
   }

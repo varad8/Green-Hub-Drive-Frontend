@@ -160,6 +160,10 @@ export class EvdetailspageComponent {
     if (!this.userLoggedStatus) {
       return alert('Please Logged In First');
     }
+
+    if (this.userLoggedStatus && this.session?.accountType !== 'user') {
+      return alert('This feature for only user');
+    }
     this.selecteddata = stationdata;
     this.openBookingModal = true;
   }
