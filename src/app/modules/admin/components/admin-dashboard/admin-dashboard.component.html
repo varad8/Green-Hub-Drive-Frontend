@@ -1,7 +1,7 @@
 <div class="flex h-screen overflow-hidden">
     <!-- Sidebar (Always visible on lg or xl screens) -->
 
-    <div class="bg-slate-800 text-white w-64 p-4" id="sidebar"
+    <div class="bg-slate-800 text-white w-64 p-4  overflow-y-auto nav-custom-scrollbar" id="sidebar"
         [ngClass]="{'hidden lg:block xl:block': isMobile && !isSidebarOpen}">
         <!-- Close Icon -->
         <div class="flex justify-end mb-3">
@@ -14,18 +14,18 @@
         </div>
 
         <!-- Profile  -->
-        <div class="flex flex-col justify-start items-center rounded-md mb-3 gap-2 bg-slate-700 px-3 py-3">
+        <div class="bg-slate-700 p-3 rounded-lg">
             <div class="flex justify-center items-center">
                 <img [src]="getProfileImageUrl(evAdminProfile?.profile?.profilepic)"
                     class="w-10 h-10 border rounded-full object-fill" [alt]="evAdminProfile?.profile?.firstname" />
             </div>
             <div class="flex flex-col flex-wrap">
-                <h3 class="text-white items-center text-[14px]">{{evAdminProfile?.profile?.firstname}}
+                <h3 class="text-white items-center text-lg  break-words">{{evAdminProfile?.profile?.firstname}}
                     {{evAdminProfile?.profile?.lastname}}</h3>
-                <p class="text-[10px]">Station ID : {{evAdminProfile?.evid}}</p>
-                <p class="text-[10px]">UID : {{evAdminProfile?.userid}}</p>
-                <p class="text-[10px]">ID : {{evAdminProfile?.id}}</p>
-                <p class="text-[10px]">Email : {{evAdminProfile?.profile?.email}}</p>
+                <p class="text-sm  break-words">Station ID : {{evAdminProfile?.evid}}</p>
+                <p class="text-sm  break-words">UID : {{evAdminProfile?.userid}}</p>
+                <p class="text-sm  break-words">ID : {{evAdminProfile?.id}}</p>
+                <p class="text-sm break-words">Email : {{evAdminProfile?.profile?.email}}</p>
             </div>
         </div>
 
@@ -58,7 +58,7 @@
         </a>
 
         <!-- Payments -->
-        <!-- <a routerLink="payments" routerLinkActive="bg-slate-600 dark:bg-slate-600"
+        <a routerLink="payments" routerLinkActive="bg-slate-600 dark:bg-slate-600"
             class="flex items-center gap-2 text-lg text-gray-300 hover:text-white  mb-1 hover:bg-slate-600 px-2 py-2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
@@ -66,7 +66,7 @@
                     d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
             </svg>
             Payments
-        </a> -->
+        </a>
 
         <!-- Profile Menu -->
         <a routerLink="profile" routerLinkActive="bg-slate-600 dark:bg-slate-600"
@@ -212,7 +212,7 @@
         </header>
 
         <!-- Main Content Area -->
-        <div class="flex-1 overflow-y-scroll bg-gray-50 dark:bg-gray-900 px-4 py-3">
+        <div class="flex-1 overflow-y-scroll custom-scrollbar bg-gray-50 dark:bg-gray-900 px-4 py-3">
             <!-- Router Outlet for displaying different components -->
             <router-outlet>
             </router-outlet>

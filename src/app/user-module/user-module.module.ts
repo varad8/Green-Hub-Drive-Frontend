@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { EvdetailspageComponent } from './usercomponents/evdetailspage/evdetailspage.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { NotificationsComponent } from './usercomponents/notifications/notifications.component';
+import { UserpaymentsComponent } from './usercomponents/userpayments/userpayments.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NotificationsComponent } from './usercomponents/notifications/notificat
     UseranalyticsComponent,
     EvdetailspageComponent,
     NotificationsComponent,
+    UserpaymentsComponent,
   ],
   imports: [
     CommonModule,

@@ -21,6 +21,7 @@ const routes: Routes = [
       { path: 'ratings', component: FeedbackComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'notifications', component: NotificationsComponent },
+      { path: 'payments', component: PaymentsComponent },
     ],
   },
 ];

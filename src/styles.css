@@ -8,3 +8,57 @@
 .group:hover .group-hover\:block {
   display: block;
 }
+
+/* Custom scrollbar style */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #8cff97; /* Color of the scrollbar track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #3e8a00; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners of the scrollbar thumb */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar thumb on hover */
+}
+
+/* For Navbar Scrollbar */
+.nav-custom-scrollbar::-webkit-scrollbar {
+  width: 2px; /* Width of the scrollbar */
+}
+
+.nav-custom-scrollbar::-webkit-scrollbar-track {
+  background: #474747; /* Color of the scrollbar track */
+}
+
+.nav-custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #272727; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners of the scrollbar thumb */
+}
+
+.nav-custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar thumb on hover */
+}
+
+/* Content Scroll */
+.content-nav-custom-scrollbar::-webkit-scrollbar {
+  width: 2px; /* Width of the scrollbar */
+}
+
+.content-nav-custom-scrollbar::-webkit-scrollbar-track {
+  background: #474747; /* Color of the scrollbar track */
+}
+
+.content-nav-custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1127bb; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners of the scrollbar thumb */
+}
+
+.content-custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar thumb on hover */
+}

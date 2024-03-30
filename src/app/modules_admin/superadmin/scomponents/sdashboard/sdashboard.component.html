@@ -1,7 +1,7 @@
 <div class="flex h-screen overflow-hidden">
     <!-- Sidebar (Always visible on lg or xl screens) -->
 
-    <div class="bg-slate-800 text-white w-64 p-4" id="sidebar"
+    <div class="bg-slate-800 text-white w-64 p-4 overflow-y-auto nav-custom-scrollbar" id="sidebar"
         [ngClass]="{'hidden lg:block xl:block': isMobile && !isSidebarOpen}">
         <!-- Close Icon -->
         <div class="flex justify-end mb-3">
@@ -159,7 +159,7 @@
         </header>
 
         <!-- Main Content Area -->
-        <div class="flex-1 overflow-x-auto bg-gray-50 dark:bg-gray-900 px-4 py-3">
+        <div class="flex-1 overflow-y-auto custom-scrollbar bg-gray-50 dark:bg-gray-900 px-4 py-3">
             <!-- Router Outlet for displaying different components -->
             <router-outlet></router-outlet>
         </div>

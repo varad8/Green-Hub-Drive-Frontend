@@ -1,73 +1,74 @@
-<div class="flex-col flex h-screen gap-3">
-
-    <!-- Filter and search controls -->
-    <h3 class="text-2xl text-gray-500 dark:text-white font-serif">Your Ratings Data</h3>
-    <div class="flex justify-between mb-4 flex-wrap">
-        <!-- Filter options -->
-        <div class="flex flex-col gap-1">
-            <span class="text-[15px] text-gray-600 dark:text-gray-300">Sort by Ratings</span>
-            <select class="border border-gray-300 rounded-md p-1 mr-2" (change)="onFilterChange($event)">
-                <option value="all">All</option>
-                <option value="highest">Highets</option>
-                <option value="lowest">Lowest</option>
-            </select>
-        </div>
-        <!-- Search by station id -->
-        <div class="flex flex-col gap-1">
-            <span class="text-[15px] text-gray-600 dark:text-gray-300">Search by station id</span>
-            <input type="text" [(ngModel)]="searchTerm" (input)="filterRating()" placeholder="Search by station id"
-                class="border border-gray-300 rounded-md p-1">
-        </div>
-
+<!-- Filter and search controls -->
+<h3 class="text-2xl text-gray-500 dark:text-white font-serif">Your Ratings Data</h3>
+<div class="flex justify-between mb-4 flex-wrap">
+    <!-- Filter options -->
+    <div class="flex flex-col gap-1">
+        <span class="text-[15px] text-gray-600 dark:text-gray-300">Sort by Ratings</span>
+        <select class="border border-gray-300 rounded-md p-1 mr-2" (change)="onFilterChange($event)">
+            <option value="all">All</option>
+            <option value="highest">Highets</option>
+            <option value="lowest">Lowest</option>
+        </select>
     </div>
-    <!-- Second grid section -->
-    <div class="h-screen  overflow-y-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-2 mt-2 mb-3">
-            <ng-container *ngFor="let rating of filterRatings; let i = index">
-                <div class="bg-white dark:bg-slate-800 shadow-lg rounded-lg  w-full border border-gray-400">
-                    <div class="px-4 py-2">
-                        <h3 class="text-lg font-semibold dark:text-gray-200 text-gray-700">{{ rating.stationId }}</h3>
-                        <hr />
-
-                        <!-- Rating Details -->
-                        <h5 class="text-lg text-gray-500 dark:text-gray-400">Rating Details</h5>
-                        <!-- Display rating data -->
-                        <div class="flex gap-2 justify-between mt-2 mb-2">
-                            <div>
-                                <p class="text-gray-500 text-sm">User Id: {{ rating.userId }}</p>
-                                <p class="text-gray-500 text-sm">Station Id: {{ rating.stationId }}</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-500 text-sm">Ratings out of 5: {{ rating.rating }}</p>
-                                <p class="text-gray-500 text-sm">Feedback : {{ rating.feedbackMsg }}</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="flex items-center justify-center  mb-3 gap-2">
-                        <button (click)="toggleModal(rating)" type="button"
-                            class="bg-green-600 text-white rounded-lg px-3 py-1">Edit</button>
-
-                        <a [href]="'user/details/' + rating.stationId"
-                            class="bg-violet-900 text-white rounded-lg px-3 py-1">View
-                            Station
-                            Details</a>
-                    </div>
-
-                </div>
-            </ng-container>
-        </div>
-
-        <div *ngIf="!filterRatings" class="flex justify-center items-center">
-            <p class="text-gray-500">No ratings found.</p>
-        </div>
+    <!-- Search by station id -->
+    <div class="flex flex-col gap-1">
+        <span class="text-[15px] text-gray-600 dark:text-gray-300">Search by station id</span>
+        <input type="text" [(ngModel)]="searchTerm" (input)="filterRating()" placeholder="Search by station id"
+            class="border border-gray-300 rounded-md p-1">
     </div>
-
-
 
 </div>
+
+<!-- Second grid section -->
+
+<div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-2 mt-2 mb-3">
+    <ng-container *ngFor="let rating of filterRatings; let i = index">
+        <div class="bg-white dark:bg-slate-800 shadow-lg rounded-lg  w-full border border-gray-400">
+            <div class="px-4 py-2">
+                <h3 class="text-lg font-semibold dark:text-gray-200 text-gray-700">{{ rating.stationId }}</h3>
+                <hr />
+
+                <!-- Rating Details -->
+                <h5 class="text-lg text-gray-500 dark:text-gray-400">Rating Details</h5>
+                <!-- Display rating data -->
+                <div class="flex flex-col gap-2 justify-between mt-2 mb-2">
+                    <div>
+                        <p class="text-gray-500 text-sm"><span class="font-medium">User Id:</span>{{ rating.userId
+                            }}</p>
+                        <p class="text-gray-500 text-sm"><span class="font-medium">Station Id:</span>{{
+                            rating.stationId }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 text-sm"><span class="font-medium">Ratings out of :</span> 5 / {{
+                            rating.rating }}</p>
+                        <p class="text-gray-500 text-sm mt-2"><span class="font-medium">Feedback :</span> {{
+                            rating.feedbackMsg }}</p>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="flex items-center justify-between  gap-2 border-t p-2 bg-yellow-100 rounded-lg shadow">
+                <button (click)="toggleModal(rating)" type="button"
+                    class="bg-green-600 text-white rounded-lg px-6 py-2">Edit</button>
+
+                <a [href]="'user/details/' + rating.stationId"
+                    class="bg-indigo-600 text-white rounded-lg px-6 py-2">View
+                    Station
+                    Details</a>
+            </div>
+
+        </div>
+    </ng-container>
+</div>
+
+<div *ngIf="!filterRatings" class="flex justify-center items-center">
+    <p class="text-gray-500">No ratings found.</p>
+</div>
+
+
+
 
 
 <!-- Opening rating modal when click -->

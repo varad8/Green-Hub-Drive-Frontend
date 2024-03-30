@@ -30,7 +30,6 @@ export class LoginComponent {
 
         console.log(response.profile);
 
-        console.log(response);
         // Save user information in session storage
         this.sst.store('webuser', response.profile);
 

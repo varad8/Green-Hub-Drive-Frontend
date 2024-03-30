@@ -20,6 +20,8 @@ export class NotificationsComponent {
   ngOnInit(): void {
     this.session = this.auth.getWebUserSession();
     this.getNotification(this.session.userid);
+
+    console.log(this.notificationdata);
   }
 
   getNotification(userid: string) {

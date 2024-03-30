@@ -1,8 +1,8 @@
-<div class="flex-col flex h-screen gap-3">
+<div>
 
     <!-- Filter and search controls -->
     <h3 class="text-2xl text-gray-500 dark:text-white font-serif">Booking Data</h3>
-    <div class="flex justify-between mb-4 flex-wrap">
+    <div class="flex justify-between mb-3 flex-wrap gap-3">
         <!-- Filter options -->
         <div class="flex flex-col gap-1">
             <span class="text-[15px] text-gray-600 dark:text-gray-300">Sort by Bookings</span>
@@ -40,150 +40,142 @@
 
 
     </div>
+
     <!-- Second grid section -->
-    <div class="h-screen  overflow-y-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-4 mt-2 mb-3">
-            <ng-container *ngFor="let booking of filteredBookings; let i = index">
-                <div class="bg-white dark:bg-slate-800 shadow-lg rounded-lg  w-full border border-gray-400">
-                    <div class="px-4 py-2">
-                        <h3 class="text-lg font-semibold dark:text-gray-200 text-gray-700">{{ booking.evid }}</h3>
-                        <hr />
+    <!-- Showing Data here -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-4 mb-5">
+        <ng-container *ngFor="let booking of filteredBookings; let i = index">
+            <div class="bg-white dark:bg-slate-800 shadow-lg rounded-lg  w-full border border-gray-400">
+                <div class="px-4 py-2">
+                    <h3 class="text-lg font-semibold dark:text-gray-200 text-gray-700">{{ booking.evid }}</h3>
+                    <hr />
 
-                        <!-- Booking Details -->
-                        <h5 class="text-lg text-gray-500 dark:text-gray-400">Booking Details</h5>
-                        <!-- Display booking data -->
-                        <div class="flex gap-5 justify-between mt-2 mb-2">
-                            <p class="text-gray-500 text-sm">User Id: {{ booking.userId }}</p>
-                            <p class="text-gray-500 text-sm">Station Id: {{ booking.stationId }}</p>
-                        </div>
+                    <!-- Booking Details -->
+                    <h5 class="text-lg text-gray-500 dark:text-gray-400">Booking Details</h5>
+                    <!-- Display booking data -->
+                    <div class="flex gap-5 justify-between mt-2 mb-2">
+                        <p class="text-gray-500 text-sm">User Id: {{ booking.userId }}</p>
+                        <p class="text-gray-500 text-sm">Station Id: {{ booking.stationId }}</p>
+                    </div>
 
-                        <!-- Display remaining booking details -->
-                        <div class="flex gap-5 justify-between mt-2 mb-2">
-                            <p class="text-gray-500 text-sm">Booked For: {{ booking.bookedForDate }}</p>
-                            <p class="text-gray-500 text-sm">Time: {{ booking.timeForBooked }}</p>
-                        </div>
+                    <!-- Display remaining booking details -->
+                    <div class="flex gap-5 justify-between mt-2 mb-2">
+                        <p class="text-gray-500 text-sm">Booked For: {{ booking.bookedForDate }}</p>
+                        <p class="text-gray-500 text-sm">Time: {{ booking.timeForBooked }}</p>
+                    </div>
 
-                        <div class="flex gap-5 justify-between mt-2 mb-2">
-                            <p class="text-gray-500 text-sm"> Hours of Booking: {{ booking.totalHoursEvBooking }}
-                                hrs.
-                            </p>
-                            <p class="text-gray-500 text-sm">Expected End Time: {{
-                                calculateExpectedEndTime(booking.timeForBooked, booking.totalHoursEvBooking) }}</p>
-                        </div>
-
-
-                        <div class="flex gap-5 justify-between mt-2 mb-2">
-                            <p class="text-gray-500 text-sm">Status: {{ booking.visitingStatus }}</p>
-                            <p class="text-gray-500 text-sm">Booking Slot: {{ booking.bookingSlot }}</p>
-                        </div>
-                        <div class="flex gap-5 justify-between mt-2 mb-2">
-                            <p class="text-gray-500 text-sm">Total Payable: ₹{{ booking.totalPayable }}</p>
-                            <p class="text-gray-500 text-sm">Remark: {{ booking.remark }}</p>
-                        </div>
-
-                        <hr class="mb-2 mt-2" />
-                        <!-- Display Payment Details -->
-                        <h5 class="text-lg text-gray-500 dark:text-gray-400">Payment Details</h5>
-                        <div class="flex gap-5 justify-between mt-2 mb-2">
-                            <p class="text-gray-500 text-sm">Payment Type: {{ booking.paymentDetails.paymentType }}
-                            </p>
-                            <p class="text-gray-500 text-sm">Payment Status: {{ booking.paymentDetails.paymentStatus
-                                }}</p>
-                        </div>
-                        <div class="flex gap-5 justify-between mt-2 mb-2">
-                            <p class="text-gray-500 text-sm">Payment Amount: ₹{{ booking.paymentDetails.amount }}
-                            </p>
-                            <p class="text-gray-500 text-sm">Payment Transaction ID: {{
-                                booking.paymentDetails.transactionid }}
-                            </p>
-                        </div>
-
-                        <hr class="mb-2 mt-2" />
-
-                        <!-- Display user profile data -->
-                        <h5 class="text-lg text-gray-500 dark:text-gray-400">Personal Details</h5>
-                        <div *ngIf="userProfiles[i]">
-                            <div class="flex gap-5 justify-between mt-2 mb-2">
-                                <p class="text-gray-500 text-sm">User Name: {{ userProfiles[i].firstname }} {{
-                                    userProfiles[i].lastname }}</p>
-                                <p class="text-gray-500 text-sm">Email: {{ userProfiles[i].email }}</p>
-                            </div>
-                            <div class="flex gap-5 justify-between mt-2 mb-2">
-                                <p class="text-gray-500 text-sm">Mobile: {{ userProfiles[i].mobile }}</p>
-                                <p class="text-gray-500 text-sm">Address: {{ userProfiles[i].address }}</p>
-                            </div>
-
-                            <div class="flex gap-5 justify-between mt-2 mb-2">
-                                <p class="text-gray-500 text-sm">Location : {{userProfiles[i].city}} -
-                                    {{userProfiles[i].state}}</p>
-                            </div>
-                        </div>
-
-
-
+                    <div class="flex gap-5 justify-between mt-2 mb-2">
+                        <p class="text-gray-500 text-sm"> Hours of Booking: {{ booking.totalHoursEvBooking }}
+                            hrs.
+                        </p>
+                        <p class="text-gray-500 text-sm">Expected End Time: {{
+                            calculateExpectedEndTime(booking.timeForBooked, booking.totalHoursEvBooking) }}</p>
                     </div>
 
 
-                    <div *ngIf="booking.visitingStatus === 'Not Visited' && !isFutureTime(booking.bookedForDate, calculateExpectedEndTime(booking.timeForBooked, booking.totalHoursEvBooking)  )"
-                        class="px-4 py-2  bg-gray-200">
-                        <p class="text-sm text-gray-500">User not visited </p>
+                    <div class="flex gap-5 justify-between mt-2 mb-2">
+                        <p class="text-gray-500 text-sm">Status: {{ booking.visitingStatus }}</p>
+                        <p class="text-gray-500 text-sm">Booking Slot: {{ booking.bookingSlot }}</p>
+                    </div>
+                    <div class="flex gap-5 justify-between mt-2 mb-2">
+                        <p class="text-gray-500 text-sm">Total Payable: ₹{{ booking.totalPayable }}</p>
+                        <p class="text-gray-500 text-sm">Remark: {{ booking.remark }}</p>
+                    </div>
+
+                    <hr class="mb-2 mt-2" />
+                    <!-- Display Payment Details -->
+                    <h5 class="text-lg text-gray-500 dark:text-gray-400">Payment Details</h5>
+                    <div class="flex gap-5 justify-between mt-2 mb-2">
+                        <p class="text-gray-500 text-sm">Payment Type: {{ booking.paymentDetails.paymentType }}
+                        </p>
+                        <p class="text-gray-500 text-sm">Payment Status: {{ booking.paymentDetails.paymentStatus
+                            }}</p>
+                    </div>
+                    <div class="flex gap-5 justify-between mt-2 mb-2">
+                        <p class="text-gray-500 text-sm">Payment Amount: ₹{{ booking.paymentDetails.amount }}
+                        </p>
+                        <p class="text-gray-500 text-sm">Payment Transaction ID: {{
+                            booking.paymentDetails.transactionid }}
+                        </p>
+                    </div>
+
+                    <hr class="mb-2 mt-2" />
+
+                    <!-- Display user profile data -->
+                    <h5 class="text-lg text-gray-500 dark:text-gray-400">Personal Details</h5>
+                    <div *ngIf="userProfiles[i]">
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">User Name: {{ userProfiles[i].firstname }} {{
+                                userProfiles[i].lastname }}</p>
+                            <p class="text-gray-500 text-sm">Email: {{ userProfiles[i].email }}</p>
+                        </div>
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">Mobile: {{ userProfiles[i].mobile }}</p>
+                            <p class="text-gray-500 text-sm">Address: {{ userProfiles[i].address }}</p>
+                        </div>
+
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">Location : {{userProfiles[i].city}} -
+                                {{userProfiles[i].state}}</p>
+                        </div>
                     </div>
 
 
 
-
-                    <div *ngIf="booking.visitingStatus === 'Visited'"
-                        class="px-4 py-2 flex gap-2 justify-between items-center bg-green-200">
-                        <p class="text-sm text-gray-500">Visited</p>
-                        <button (click)="toggleModal(booking)"
-                            class="bg-green-700 text-white flex gap-2 justify-center items-center px-3 py-1 rounded-lg">Rate
-                            Us
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                class="h-8 w-8" version="1.1" id="Capa_1" viewBox="0 0 47.94 47.94"
-                                xml:space="preserve">
-                                <path style="fill:#ED8A19;"
-                                    d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757  c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042  c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685  c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528  c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956  C22.602,0.567,25.338,0.567,26.285,2.486z" />
-                            </svg>
-                        </button>
-                    </div>
-
-
-                    <div class="flex justify-between px-4 py-2 bg-none">
-                        <button class="bg-rose-800 text-white px-3 py-2 rounded-md"
-                            (click)="paymentDetails(booking.bookingRefId)">View
-                            Payment</button>
-                        <button (click)="downloadInvoice(booking.bookingRefId)"
-                            class="bg-blue-800 text-white px-3 py-2 rounded-md">Get
-                            Invoice</button>
-
-                        <a [href]="'user/details/' + booking.stationId"
-                            class="bg-violet-800 text-white px-3 py-2 rounded-md">View
-                            Station
-                            Details</a>
-                    </div>
                 </div>
-            </ng-container>
-        </div>
 
 
-        <div class="flex justify-center items-center"><svg *ngIf="!filteredBookings" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;display:block;" width="100px"
-                height="100px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-                <path d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#36e30c" stroke="none">
-                    <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite"
-                        keyTimes="0;1" values="0 50 51;360 50 51"></animateTransform>
-                </path>
-            </svg></div>
-
-        <div *ngIf="!filteredBookings || filteredBookings.length === 0"
-            class="flex justify-center items-center h-screen">
-            <p class="text-gray-500">No bookings found.</p>
-        </div>
+                <div *ngIf="booking.visitingStatus === 'Not Visited' && !isFutureTime(booking.bookedForDate, calculateExpectedEndTime(booking.timeForBooked, booking.totalHoursEvBooking)  )"
+                    class="px-4 py-2  bg-gray-200">
+                    <p class="text-sm text-gray-500">User not visited </p>
+                </div>
 
 
 
+
+                <div *ngIf="booking.visitingStatus === 'Visited'"
+                    class="px-4 py-2 flex gap-2 justify-between items-center bg-green-200">
+                    <p class="text-sm text-gray-500">Visited</p>
+                    <button (click)="toggleModal(booking)"
+                        class="bg-green-700 text-white flex gap-2 justify-center items-center px-3 py-1 rounded-lg">Rate
+                        Us
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            class="h-8 w-8" version="1.1" id="Capa_1" viewBox="0 0 47.94 47.94" xml:space="preserve">
+                            <path style="fill:#ED8A19;"
+                                d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757  c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042  c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685  c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528  c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956  C22.602,0.567,25.338,0.567,26.285,2.486z" />
+                        </svg>
+                    </button>
+                </div>
+
+
+                <div class="flex justify-between px-4 py-2 bg-none">
+                    <button class="bg-rose-800 text-white px-3 py-2 rounded-md"
+                        (click)="paymentDetails(booking.bookingRefId)">View
+                        Payment</button>
+                    <button (click)="downloadInvoice(booking.bookingRefId)"
+                        class="bg-blue-800 text-white px-3 py-2 rounded-md">Get
+                        Invoice</button>
+
+                    <a [href]="'user/details/' + booking.stationId"
+                        class="bg-violet-800 text-white px-3 py-2 rounded-md">View
+                        Station
+                        Details</a>
+                </div>
+            </div>
+        </ng-container>
     </div>
+
+
+
+
+    <div *ngIf="!filteredBookings || filteredBookings.length === 0" class="flex justify-center items-center h-screen">
+        <p class="text-gray-500">No bookings found.</p>
+    </div>
+
+
+
 </div>
+
 
 
 

@@ -8,6 +8,7 @@ import { UserbookingComponent } from './usercomponents/userbooking/userbooking.c
 import { UserfeedbackComponent } from './usercomponents/userfeedback/userfeedback.component';
 import { EvdetailspageComponent } from './usercomponents/evdetailspage/evdetailspage.component';
 import { NotificationsComponent } from './usercomponents/notifications/notifications.component';
+import { UserpaymentsComponent } from './usercomponents/userpayments/userpayments.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'ratings', component: UserfeedbackComponent },
       { path: 'details/:stationid', component: EvdetailspageComponent },
       { path: 'notifications', component: NotificationsComponent },
+      { path: 'payments', component: UserpaymentsComponent },
     ],
   },
 ];

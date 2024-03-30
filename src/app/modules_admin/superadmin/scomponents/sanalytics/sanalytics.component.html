@@ -125,16 +125,15 @@
 
                 <!-- Read More/Approve -->
 
-                <div class="flex gap-2 items-center mt-3 mb-3 justify-center">
+                <div class="flex justify-center gap-4 mt-3 mb-3 items-center">
                     <a routerLink="../details/{{profile?.userid}}"
-                        class="rounded-full bg-black drop-shadow px-2 py-2 text-white">Read
-                        More</a>
+                        class="rounded-md bg-black p-2  text-white drop-shadow hover:bg-gray-800">Read More</a>
                     <button (click)="approveProfile(profile)" type="button"
-                        class="rounded-full bg-green-500 px-2 py-2 drop-shadow text-white">
-                        Approve</button>
+                        class="rounded-md bg-green-500 p-2 text-white drop-shadow hover:bg-green-600">Approve</button>
                     <a routerLink="../stats/{{profile?.userid}}"
-                        class="rounded-full bg-black drop-shadow px-2 py-2 text-white">Stats</a>
+                        class="rounded-md bg-black p-2 text-white drop-shadow hover:bg-gray-800">Stats</a>
                 </div>
+
             </div>
         </div>
     </div>
@@ -185,16 +184,15 @@
 
                 <!-- Read More/Approve -->
 
-                <div class="flex gap-2 items-center mt-3 mb-3 justify-center">
+                <div class="flex items-center justify-center gap-4 mt-3 mb-3">
                     <a routerLink="../details/{{profile?.userid}}"
-                        class="rounded-full bg-black drop-shadow px-1 py-2 text-white">Read
-                        More</a>
+                        class="rounded-md bg-black p-2 text-white hover:bg-gray-800">Read More</a>
                     <button (click)="disapproveProfile(profile)" type="button"
-                        class="rounded-full bg-green-500 px-1 py-2 drop-shadow text-white">
-                        DisApprove</button>
+                        class="rounded-md bg-green-500 p-2 text-white hover:bg-green-600">Disapprove</button>
                     <a routerLink="../stats/{{profile?.userid}}"
-                        class="rounded-full bg-black drop-shadow px-1 py-2 text-white">Stats</a>
+                        class="rounded-md bg-black p-2 text-white hover:bg-gray-800">Stats</a>
                 </div>
+
             </div>
         </div>
     </div>

@@ -1,53 +1,42 @@
 import { Component } from '@angular/core';
-import { AdminserviceService } from '../../../../EvDataService/adminservice.service';
-import { AuthService } from '../../../../shared/auth.service';
+import { UserservicesService } from '../../../UserDataService/userservices.service';
+import { AuthService } from '../../../shared/auth.service';
 import { forkJoin } from 'rxjs';
-import { UserservicesService } from '../../../../UserDataService/userservices.service';
-import { environment } from '../../../../../environments/environment.development';
 
 @Component({
-  selector: 'app-payments',
-  templateUrl: './payments.component.html',
-  styleUrl: './payments.component.css',
+  selector: 'app-userpayments',
+  templateUrl: './userpayments.component.html',
+  styleUrl: './userpayments.component.css',
 })
-export class PaymentsComponent {
-  private baseUrl = environment.BASE_URL;
-  notificationTitle: string;
-  notificationDescription: string;
-  notificationModal: boolean = false;
+export class UserpaymentsComponent {
   bookings: any;
   userProfiles: any;
   filteredBookings: any;
   filterType: string = 'All';
   searchTerm: string = '';
   filterDate: string = '';
-  mobile: string = '';
+  stationid: string = '';
   session: any;
   showModal: boolean = false;
   selectedBooking: any;
   feedbackMsg: string = '';
-  selectedratingdata: any;
+  selectedratingdata: any | undefined;
   paymentData: any;
-  selectedDataForNotification: any;
   isPaymentModal: boolean = false;
-  isProfileModal: boolean = false;
-  selectedProfile: any;
 
   constructor(
-    private evdata: AdminserviceService,
-    private auth: AuthService,
-    private userservice: UserservicesService
+    private userservice: UserservicesService,
+    private auth: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.session = this.auth.getEvAdminSession();
-    console.log('Session Data', this.session);
+    this.session = this.auth.getWebUserSession();
     this.getBookings(this.session.userid);
   }
 
   //Get Booking
   getBookings(userid: string) {
-    this.evdata.getBookingDataByStationId(userid).subscribe(
+    this.userservice.getBookingByUserId(userid).subscribe(
       (bookings: any) => {
         this.bookings = bookings;
         this.userProfiles = []; // Initialize userProfiles array
@@ -65,13 +54,13 @@ export class PaymentsComponent {
             this.filterBookings();
           },
           (error) => {
-            console.log('Error fetching user data:', error);
+            console.error('Error fetching user data:', error);
             // Handle error
           }
         );
       },
       (error) => {
-        console.log('Error fetching booking data:', error);
+        console.error('Error fetching booking data:', error);
         // Handle error
       }
     );
@@ -120,19 +109,17 @@ export class PaymentsComponent {
       );
     }
 
-    if (this.mobile.trim() !== '') {
-      tempBookings = tempBookings.filter((booking) =>
-        this.userProfiles.some((userProfile) =>
-          userProfile.mobile.toLowerCase().includes(this.mobile.toLowerCase())
-        )
-      );
-    }
-
     if (this.filterDate) {
       tempBookings = tempBookings.filter(
         (booking) =>
           new Date(booking.bookedForDate).toDateString() ===
           new Date(this.filterDate).toDateString()
+      );
+    }
+
+    if (this.stationid.trim() !== '') {
+      tempBookings = tempBookings.filter((booking) =>
+        booking.stationId.toLowerCase().includes(this.stationid.toLowerCase())
       );
     }
 
@@ -202,13 +189,113 @@ export class PaymentsComponent {
   toggleModal(dataofbooking: any) {
     this.selectedBooking = dataofbooking;
     this.showModal = !this.showModal;
+
+    // Call the method to get rating data for the selected booking
+
+    this.userservice.getRatingByOrderId(dataofbooking.bookingRefId).subscribe(
+      (response) => {
+        console.log('Rating data:', response.rating);
+        if (response.rating) {
+          this.filledStars = response.rating.rating;
+          this.selectedratingdata = response.rating;
+          console.log(response.rating.rating);
+        } else {
+          this.filledStars = 0;
+        }
+        this.feedbackMsg = response.rating.feedbackMsg || '';
+        this.updateStars();
+      },
+      (error) => {
+        this.selectedratingdata = undefined;
+        console.error('Error fetching rating data:', error);
+      }
+    );
   }
 
   toggleClose() {
     this.showModal = false;
+    this.filledStars = 0;
+    this.updateStars();
     this.feedbackMsg = '';
     this.selectedBooking = undefined;
     this.showModal = false;
+  }
+
+  filledStars: number = 0;
+  stars: { class: string }[] = [
+    { class: 'w-12 h-12 text-gray-500' },
+    { class: 'w-12 h-12 text-gray-500' },
+    { class: 'w-12 h-12 text-gray-500' },
+    { class: 'w-12 h-12 text-gray-500' },
+    { class: 'w-12 h-12 text-gray-500' },
+  ];
+
+  rate(index: number): void {
+    if (index === this.filledStars - 1) {
+      // If the user clicks on the currently filled star, deselect it
+      this.filledStars = Math.max(0, this.filledStars - 1); // Ensure it doesn't go below 0
+    } else {
+      // Otherwise, update the filled stars count
+      this.filledStars = Math.min(index + 1, 5); // Ensure it doesn't exceed 5
+    }
+    this.updateStars();
+  }
+
+  updateStars(): void {
+    this.stars.forEach((star, i) => {
+      star.class =
+        i < this.filledStars
+          ? 'w-12 h-12 text-yellow-500'
+          : 'w-12 h-12 text-gray-500';
+    });
+  }
+
+  rateNow(bookingData: any): void {
+    // Create a Ratingmodel object with the necessary data
+
+    if (this.selectedratingdata != undefined) {
+      const ratingData = {
+        ratingId: this.selectedratingdata.ratingId,
+        stationId: bookingData.stationId,
+        userId: bookingData.userId,
+        rating: this.filledStars,
+        feedbackMsg: this.feedbackMsg,
+        orderId: bookingData.bookingRefId,
+      };
+
+      // If ratingId exists, call updateRating
+      this.userservice.updateRating(ratingData).subscribe(
+        (response) => {
+          this.toggleClose();
+          alert(response.message);
+          console.log('Rating updated successfully:', response);
+        },
+        (error) => {
+          console.error('Error updating rating:', error);
+        }
+      );
+    } else {
+      const ratingData = {
+        stationId: bookingData.stationId,
+        userId: bookingData.userId,
+        rating: this.filledStars,
+        feedbackMsg: this.feedbackMsg,
+        orderId: bookingData.bookingRefId,
+      };
+
+      // If ratingId doesn't exist, call saveRating
+      this.userservice.saveRating(ratingData).subscribe(
+        (response) => {
+          alert(response.message);
+          this.toggleClose();
+          console.log('Rating saved successfully:', response);
+        },
+        (error) => {
+          alert(error.error.error);
+          console.error('Error saving rating:', error);
+        }
+      );
+    }
   }
 
   openPaymentModal() {
@@ -228,15 +315,15 @@ export class PaymentsComponent {
         this.openPaymentModal();
       },
       (error) => {
-        console.log('Error fetching booking data:', error);
+        console.error('Error fetching booking data:', error);
         // Handle error
       }
     );
   }
 
   //Download Invoice
-  downloadInvoice(orderid: string, useremail: string) {
-    this.userservice.sendInvoiceToUser(orderid, useremail);
+  downloadInvoice(orderid: string) {
+    this.userservice.sendInvoiceToUser(orderid, this.session.email);
   }
 
   //Format amount
@@ -249,36 +336,5 @@ export class PaymentsComponent {
 
     // Return the formatted value
     return formattedValue;
-  }
-
-  viewUserProfile(userProfile: any) {
-    this.selectedProfile = userProfile;
-    this.isProfileModal = true;
-  }
-
-  closeProfileModal() {
-    this.isProfileModal = false;
-  }
-
-  //Get Image
-  getProfileImageUrl(filename: string): string {
-    return `${this.baseUrl}/admin/image/${filename}`;
-  }
-
-  convertTimestampToReadable(timestamp: string): string {
-    const date = new Date(timestamp);
-    return date.toLocaleString('en-US', { timeZone: 'UTC' });
-  }
-
-  formatDate(dateString: string): string {
-    // Parse the ISO 8601 date string into a Date object
-    const date = new Date(dateString);
-    // Extract year, month, and day from the Date object
-    const year = date.getFullYear();
-    // Months are zero-based in JavaScript Date objects, so add 1 to get the correct month
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    // Construct the formatted date string in yyyy-mm-dd format
-    return `${year}-${month}-${day}`;
   }
 }

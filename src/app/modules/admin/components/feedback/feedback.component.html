@@ -1,75 +1,69 @@
-<div class="flex-col flex h-screen gap-3">
-
-    <!-- Filter and search controls -->
-    <h3 class="text-2xl text-gray-500 dark:text-white font-serif">Your Ratings Data</h3>
-    <div class="flex justify-between mb-4 flex-wrap">
-        <!-- Filter options -->
-        <div class="flex flex-col gap-1">
-            <span class="text-[15px] text-gray-600 dark:text-gray-300">Sort by Ratings</span>
-            <select class="border border-gray-300 rounded-md p-1 mr-2" (change)="onFilterChange($event)">
-                <option value="all">All</option>
-                <option value="highest">Highets</option>
-                <option value="lowest">Lowest</option>
-            </select>
-        </div>
-        <!-- Search by station id -->
-        <div class="flex flex-col gap-1">
-            <span class="text-[15px] text-gray-600 dark:text-gray-300">Search by user id</span>
-            <input type="text" [(ngModel)]="searchTerm" (input)="filterRating()" placeholder="Search by user id"
-                class="border border-gray-300 rounded-md p-1">
-        </div>
-
+<!-- Filter and search controls -->
+<h3 class="text-2xl text-gray-500 dark:text-white font-serif">Your Ratings Data</h3>
+<div class="flex justify-between mb-4 flex-wrap">
+    <!-- Filter options -->
+    <div class="flex flex-col gap-1">
+        <span class="text-[15px] text-gray-600 dark:text-gray-300">Sort by Ratings</span>
+        <select class="border border-gray-300 rounded-md p-1 mr-2" (change)="onFilterChange($event)">
+            <option value="all">All</option>
+            <option value="highest">Highets</option>
+            <option value="lowest">Lowest</option>
+        </select>
     </div>
-    <!-- Second grid section -->
-    <div class="h-screen  overflow-y-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-2 mb-3">
-            <ng-container *ngFor="let rating of filterRatings; let i = index">
-                <div class="bg-white dark:bg-slate-800 shadow-lg rounded-lg  w-full border border-gray-400">
-                    <div class="px-4 py-2">
-                        <h3 class="text-lg font-semibold dark:text-gray-200 text-gray-700">{{ rating.userId }}
-                        </h3>
-                        <hr />
+    <!-- Search by station id -->
+    <div class="flex flex-col gap-1">
+        <span class="text-[15px] text-gray-600 dark:text-gray-300">Search by user id</span>
+        <input type="text" [(ngModel)]="searchTerm" (input)="filterRating()" placeholder="Search by user id"
+            class="border border-gray-300 rounded-md p-1">
+    </div>
 
-                        <!-- Rating Details -->
-                        <h5 class="text-lg text-gray-500 dark:text-gray-400">Rating Details</h5>
-                        <!-- Display rating data -->
-                        <div class="flex gap-5 justify-between mt-2 mb-2">
+</div>
+<!-- Second grid section -->
 
-                            <p class="text-gray-500 text-sm">Station Id: {{ rating.stationId }}</p>
-                            <p class="text-gray-500 text-sm">Ratings out of 5: {{ rating.rating }}</p>
+<div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-2 mb-3">
+    <ng-container *ngFor="let rating of filterRatings; let i = index">
+        <div class="bg-white dark:bg-slate-800 shadow-lg rounded-lg  w-full border border-gray-400">
+            <div class="px-4 py-2">
+                <h3 class="text-lg font-semibold dark:text-gray-200 text-gray-700">{{ rating.userId }}
+                </h3>
+                <hr />
 
-                        </div>
-                        <p class="text-gray-500 text-sm">Feedback : {{ rating.feedbackMsg }}</p>
+                <!-- Rating Details -->
+                <h5 class="text-lg text-gray-500 dark:text-gray-400">Rating Details</h5>
+                <!-- Display rating data -->
+                <div class="flex gap-5 justify-between mt-2 mb-2">
 
-                        <hr />
-                        <h5 class="text-lg text-gray-500 dark:text-gray-400">Profie Details</h5>
-                        <div class="flex gap-6  mt-2 mb-2">
-                            <img class="w-20 h-20 rounded-full border border-gray-100"
-                                [src]="getProfileImageUrl(rating.userProfile.profilepic)" />
-                            <div>
-                                <p class="text-gray-500 text-sm">User Name: {{rating.userProfile.firstname}}
-                                    {{rating.userProfile.lastname}}
-                                </p>
-                                <p class="text-gray-500 text-sm">Email:
-                                    {{rating.userProfile.email}}
-                                </p>
-                                <p class="text-gray-500 text-sm">Mobile No:
-                                    {{rating.userProfile.mobile}}
-                                </p>
-                                <p class="text-gray-500 text-sm">User Id: {{ rating.userId }}</p>
-                            </div>
-                        </div>
-
-                    </div>
+                    <p class="text-gray-500 text-sm">Station Id: {{ rating.stationId }}</p>
+                    <p class="text-gray-500 text-sm">Ratings out of 5: {{ rating.rating }}</p>
 
                 </div>
-            </ng-container>
-        </div>
+                <p class="text-gray-500 text-sm">Feedback : {{ rating.feedbackMsg }}</p>
 
-        <div *ngIf="!filterRatings || filterRatings.length === 0"
-            class="flex justify-center items-center overflow-hidden">
-            <p class="text-gray-500">No ratings found.</p>
-        </div>
+                <hr />
+                <h5 class="text-lg text-gray-500 dark:text-gray-400">Profie Details</h5>
+                <div class="flex gap-6  mt-2 mb-2">
+                    <img class="w-20 h-20 rounded-full border border-gray-100"
+                        [src]="getProfileImageUrl(rating.userProfile.profilepic)" />
+                    <div>
+                        <p class="text-gray-500 text-sm">User Name: {{rating.userProfile.firstname}}
+                            {{rating.userProfile.lastname}}
+                        </p>
+                        <p class="text-gray-500 text-sm">Email:
+                            {{rating.userProfile.email}}
+                        </p>
+                        <p class="text-gray-500 text-sm">Mobile No:
+                            {{rating.userProfile.mobile}}
+                        </p>
+                        <p class="text-gray-500 text-sm">User Id: {{ rating.userId }}</p>
+                    </div>
+                </div>
 
-    </div>
+            </div>
+
+        </div>
+    </ng-container>
+</div>
+
+<div *ngIf="!filterRatings || filterRatings.length === 0" class="flex justify-center items-center overflow-hidden">
+    <p class="text-gray-500">No ratings found.</p>
 </div>

@@ -1,7 +1,8 @@
-<div class="flex h-screen overflow-hidden">
-    <div class="grid grid-cols-2">
-        <!-- First grid section -->
-        <div class="h-screen overflow-y-auto">
+<div class="flex h-screen">
+    <!-- First Grid -->
+    <div class="flex-1 overflow-auto content-nav-custom-scrollbar p-4">
+        <h2 class="text-lg font-semibold mb-4">Ev Station's</h2>
+        <div class="grid grid-cols-1 gap-4">
             <div class="p-2" *ngFor="let profile of profiles">
                 <div class="flex gap-2 bg-white shadow-md border  border-gray-200 dark:bg-slate-700 rounded-lg">
                     <div class="px-3 py-2">
@@ -40,214 +41,175 @@
                 </div>
             </div>
         </div>
-
-        <!-- Second grid Section -->
-        <div class="h-screen overflow-hidden">
-            <!-- Filter and search controls -->
-            <div class="flex justify-between mb-4">
-                <!-- Filter options -->
-                <div class="flex flex-col gap-1">
-                    <span class="text-[15px] text-gray-600 dark:text-gray-300">Sort by Bookings</span>
-                    <select [(ngModel)]="filterType" (change)="filterBookings()"
-                        class="border border-gray-300 rounded-md p-1 mr-2">
-                        <option value="All">All</option>
-                        <option value="Today">Today</option>
-                        <option value="Upcoming">Upcoming</option>
-                        <option value="Yesterday">Yesterday</option>
-                        <option value="Visited">Visited</option>
-                        <option value="NotVisited">Not Visited</option>
-                    </select>
-                </div>
-                <!-- Search by user ID -->
-                <div class="flex flex-col gap-1">
-                    <span class="text-[15px] text-gray-600 dark:text-gray-300">Search by user id</span>
-                    <input type="text" [(ngModel)]="searchTerm" (input)="filterBookings()"
-                        placeholder="Search by User ID" class="border border-gray-300 rounded-md p-1">
-                </div>
-
-                <!-- Filter by Date -->
-                <div class="flex flex-col gap-1">
-                    <span class="text-[15px] text-gray-600 dark:text-gray-300">Search by date</span>
-                    <input type="date" [(ngModel)]="filterDate" (input)="filterBookings()" placeholder="filter by date"
-                        class="border border-gray-300 rounded-md p-1">
-                </div>
-
-                <div class="flex flex-col gap-1">
-                    <span class="text-[15px] text-gray-600 dark:text-gray-300">Search by Mobile No</span>
-                    <input type="text" [(ngModel)]="mobile" (input)="filterBookings()" placeholder="filter by date"
-                        class="border border-gray-300 rounded-md p-1">
-                </div>
-
-
+    </div>
+    <!-- Second Grid -->
+    <div class="flex-1 overflow-auto content-nav-custom-scrollbar p-4">
+        <h2 class="text-lg font-semibold mb-4">Booking Details</h2>
+        <div class="flex justify-between flex-wrap items-center gap-4 px-3 py-1 mb-2">
+            <!-- Filter options -->
+            <div class="flex flex-col gap-1">
+                <span class="text-[15px] text-gray-600 dark:text-gray-300">Sort by Bookings</span>
+                <select [(ngModel)]="filterType" (change)="filterBookings()"
+                    class="border border-gray-300 rounded-md p-1 mr-2">
+                    <option value="All">All</option>
+                    <option value="Today">Today</option>
+                    <option value="Upcoming">Upcoming</option>
+                    <option value="Yesterday">Yesterday</option>
+                    <option value="Visited">Visited</option>
+                    <option value="NotVisited">Not Visited</option>
+                </select>
+            </div>
+            <!-- Search by user ID -->
+            <div class="flex flex-col gap-1">
+                <span class="text-[15px] text-gray-600 dark:text-gray-300">Search by user email</span>
+                <input type="text" [(ngModel)]="searchTerm" (input)="filterBookings()" placeholder="Search by User ID"
+                    class="border border-gray-300 rounded-md p-1">
             </div>
 
-            <!-- Second grid section -->
-            <div class="h-full  overflow-y-auto">
-                <div class="grid grid-cols-1  gap-4 mt-2">
-                    <ng-container *ngFor="let booking of filteredBookings; let i = index">
-                        <div class="bg-white dark:bg-slate-800 shadow-lg rounded-lg  w-full border border-gray-400">
-                            <div class="px-4 py-2">
-                                <h3 class="text-lg font-semibold dark:text-gray-200 text-gray-700">{{ booking.evid }}
-                                </h3>
-                                <hr />
+            <!-- Filter by Date -->
+            <div class="flex flex-col gap-1">
+                <span class="text-[15px] text-gray-600 dark:text-gray-300">Search by date</span>
+                <input type="date" [(ngModel)]="filterDate" (input)="filterBookings()" placeholder="filter by date"
+                    class="border border-gray-300 rounded-md p-1">
+            </div>
 
-                                <!-- Booking Details -->
-                                <h5 class="text-lg text-gray-500 dark:text-gray-400">Booking Details</h5>
-                                <!-- Display booking data -->
-                                <div class="flex gap-5 justify-between mt-2 mb-2">
-                                    <p class="text-gray-500 text-sm">User Id: {{ booking?.userId }}</p>
-                                    <p class="text-gray-500 text-sm">Station Id: {{ booking?.stationId }}</p>
-                                </div>
-
-                                <!-- Display remaining booking details -->
-                                <div class="flex gap-5 justify-between mt-2 mb-2">
-                                    <p class="text-gray-500 text-sm">Booked For: {{ booking?.bookedForDate }}</p>
-                                    <p class="text-gray-500 text-sm">Time: {{ booking?.timeForBooked }}</p>
-                                </div>
-
-                                <div class="flex gap-5 justify-between mt-2 mb-2">
-                                    <p class="text-gray-500 text-sm"> Hours of Booking: {{ booking?.totalHoursEvBooking
-                                        }}
-                                        hrs.
-                                    </p>
-                                    <p class="text-gray-500 text-sm">Expected End Time: {{
-                                        calculateExpectedEndTime(booking?.timeForBooked, booking?.totalHoursEvBooking)
-                                        }}
-                                    </p>
-                                </div>
+            <div class="flex flex-col gap-1">
+                <span class="text-[15px] text-gray-600 dark:text-gray-300">Search by Mobile No</span>
+                <input type="text" [(ngModel)]="mobile" (input)="filterBookings()" placeholder="filter by date"
+                    class="border border-gray-300 rounded-md p-1">
+            </div>
 
 
-                                <div class="flex gap-5 justify-between mt-2 mb-2">
-                                    <p class="text-gray-500 text-sm">Status: {{ booking?.visitingStatus }}</p>
-                                    <p class="text-gray-500 text-sm">Booking Slot: {{ booking?.bookingSlot }}</p>
-                                </div>
-                                <div class="flex gap-5 justify-between mt-2 mb-2">
-                                    <p class="text-gray-500 text-sm">Total Payable: ₹{{ booking?.totalPayable }}</p>
-                                    <p class="text-gray-500 text-sm">Remark: {{ booking?.remark }}</p>
-                                </div>
+        </div>
 
-                                <hr class="mb-2 mt-2" />
-                                <!-- Display Payment Details -->
-                                <h5 class="text-lg text-gray-500 dark:text-gray-400">Payment Details</h5>
-                                <div class="flex gap-5 justify-between mt-2 mb-2">
-                                    <p class="text-gray-500 text-sm">Payment Type: {{
-                                        booking?.paymentDetails?.paymentType
-                                        }}
-                                    </p>
-                                    <p class="text-gray-500 text-sm">Payment Status: {{
-                                        booking?.paymentDetails?.paymentStatus
-                                        }}</p>
-                                </div>
-                                <div class="flex gap-5 justify-between mt-2 mb-2">
-                                    <p class="text-gray-500 text-sm">Payment Amount: ₹{{ booking?.paymentDetails?.amount
-                                        }}
-                                    </p>
-                                    <p class="text-gray-500 text-sm">Payment Transaction ID: {{
-                                        booking?.paymentDetails?.transactionid }}
-                                    </p>
-                                </div>
+        <div class="grid grid-cols-1 gap-4">
+            <ng-container *ngFor="let booking of filteredBookings; let i = index">
+                <div class="bg-white dark:bg-slate-800 shadow-lg rounded-lg  w-full border border-gray-400">
+                    <div class="px-4 py-2">
+                        <h3 class="text-lg font-semibold dark:text-gray-200 text-gray-700">{{ booking.evid }}
+                        </h3>
+                        <hr />
 
-                                <hr class="mb-2 mt-2" />
+                        <!-- Booking Details -->
+                        <h5 class="text-lg text-gray-500 dark:text-gray-400">Booking Details</h5>
+                        <!-- Display booking data -->
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">User Id: {{ booking?.userId }}</p>
+                            <p class="text-gray-500 text-sm">Station Id: {{ booking?.stationId }}</p>
+                        </div>
 
-                                <!-- Display user profile data -->
-                                <h5 class="text-lg text-gray-500 dark:text-gray-400">Personal Details</h5>
-                                <div *ngIf="userProfiles[i]">
-                                    <div class="flex gap-5 justify-between mt-2 mb-2">
-                                        <p class="text-gray-500 text-sm">User Name: {{ userProfiles[i].firstname }} {{
-                                            userProfiles[i].lastname }}</p>
-                                        <p class="text-gray-500 text-sm">Email: {{ userProfiles[i].email }}</p>
-                                    </div>
-                                    <div class="flex gap-5 justify-between mt-2 mb-2">
-                                        <p class="text-gray-500 text-sm">Mobile: {{ userProfiles[i].mobile }}</p>
-                                        <p class="text-gray-500 text-sm">Address: {{ userProfiles[i].address }}</p>
-                                    </div>
+                        <!-- Display remaining booking details -->
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">Booked For: {{ booking?.bookedForDate }}</p>
+                            <p class="text-gray-500 text-sm">Time: {{ booking?.timeForBooked }}</p>
+                        </div>
 
-                                    <div class="flex gap-5 justify-between mt-2 mb-2">
-                                        <p class="text-gray-500 text-sm">Location : {{userProfiles[i].city}} -
-                                            {{userProfiles[i].state}}</p>
-                                    </div>
-                                </div>
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm"> Hours of Booking: {{ booking?.totalHoursEvBooking
+                                }}
+                                hrs.
+                            </p>
+                            <p class="text-gray-500 text-sm">Expected End Time: {{
+                                calculateExpectedEndTime(booking?.timeForBooked, booking?.totalHoursEvBooking)
+                                }}
+                            </p>
+                        </div>
 
 
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">Status: {{ booking?.visitingStatus }}</p>
+                            <p class="text-gray-500 text-sm">Booking Slot: {{ booking?.bookingSlot }}</p>
+                        </div>
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">Total Payable: ₹{{ booking?.totalPayable }}</p>
+                            <p class="text-gray-500 text-sm">Remark: {{ booking?.remark }}</p>
+                        </div>
 
+                        <hr class="mb-2 mt-2" />
+                        <!-- Display Payment Details -->
+                        <h5 class="text-lg text-gray-500 dark:text-gray-400">Payment Details</h5>
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">Payment Type: {{
+                                booking?.paymentDetails?.paymentType
+                                }}
+                            </p>
+                            <p class="text-gray-500 text-sm">Payment Status: {{
+                                booking?.paymentDetails?.paymentStatus
+                                }}</p>
+                        </div>
+                        <div class="flex gap-5 justify-between mt-2 mb-2">
+                            <p class="text-gray-500 text-sm">Payment Amount: ₹{{ booking?.paymentDetails?.amount
+                                }}
+                            </p>
+                            <p class="text-gray-500 text-sm">Payment Transaction ID: {{
+                                booking?.paymentDetails?.transactionid }}
+                            </p>
+                        </div>
+
+                        <hr class="mb-2 mt-2" />
+
+                        <!-- Display user profile data -->
+                        <h5 class="text-lg text-gray-500 dark:text-gray-400">Personal Details</h5>
+                        <div *ngIf="userProfiles[i]">
+                            <div class="flex gap-5 justify-between mt-2 mb-2">
+                                <p class="text-gray-500 text-sm">User Name: {{ userProfiles[i].firstname }} {{
+                                    userProfiles[i].lastname }}</p>
+                                <p class="text-gray-500 text-sm">Email: {{ userProfiles[i].email }}</p>
+                            </div>
+                            <div class="flex gap-5 justify-between mt-2 mb-2">
+                                <p class="text-gray-500 text-sm">Mobile: {{ userProfiles[i].mobile }}</p>
+                                <p class="text-gray-500 text-sm">Address: {{ userProfiles[i].address }}</p>
                             </div>
 
-
-                            <!-- <div *ngIf="booking.visitingStatus === 'Not Visited' && isFutureTime(booking.bookedForDate, calculateExpectedEndTime(booking.timeForBooked, booking.totalHoursEvBooking))"
-                                class="px-4 py-2  bg-gray-200">
-                                <button type="button" (click)="updateStatusToVisited(booking)"
-                                    class="bg-green-500 flex justify-between items-center gap-4 text-white rounded-lg px-2 py-1">
-                                    <span>Mark as Visited</span>
-                                    <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px"
-                                        y="0px" viewBox="0 0 122.88 122.87"
-                                        style="enable-background:new 0 0 122.88 122.87" xml:space="preserve">
-                                        <style type="text/css">
-                                            .st0 {
-                                                fill: #ffffff;
-                                            }
-
-                                            .st1 {
-                                                fill: #000;
-                                            }
-                                        </style>
-                                        <g>
-                                            <path class="st0"
-                                                d="M32.82,51.34l14.99-0.2l1.12,0.29c3.03,1.74,5.88,3.74,8.54,5.99c1.92,1.63,3.76,3.4,5.5,5.32 c5.38-8.65,11.11-16.6,17.16-23.9c6.63-8,13.66-15.27,21.05-21.9l1.46-0.56h16.36l-3.3,3.66c-10.13,11.26-19.33,22.9-27.64,34.9 C79.74,66.97,72.31,79.37,65.7,92.13l-2.06,3.97l-1.89-4.04c-3.49-7.48-7.66-14.35-12.64-20.49c-4.98-6.14-10.77-11.59-17.52-16.22 L32.82,51.34L32.82,51.34L32.82,51.34z" />
-                                            <path class="st1"
-                                                d="M61.44,0c9.53,0,18.55,2.17,26.61,6.04c-3.3,2.61-6.36,5.11-9.21,7.53c-5.43-1.97-11.28-3.05-17.39-3.05 c-14.06,0-26.79,5.7-36,14.92c-9.21,9.22-14.92,21.94-14.92,36c0,14.06,5.7,26.78,14.92,36s21.94,14.92,36,14.92 c14.06,0,26.79-5.7,36-14.92c9.22-9.22,14.91-21.94,14.91-36c0-3.34-0.32-6.62-0.94-9.78c2.64-3.44,5.35-6.88,8.11-10.28 c2.17,6.28,3.35,13.04,3.35,20.06c0,16.96-6.88,32.33-17.99,43.44c-11.12,11.12-26.48,18-43.44,18c-16.96,0-32.32-6.88-43.44-18 C6.88,93.76,0,78.4,0,61.44C0,44.47,6.88,29.11,17.99,18C29.11,6.88,44.47,0,61.44,0L61.44,0L61.44,0z" />
-                                        </g>
-                                    </svg>
-                                </button>
-                            </div> -->
-
-                            <div *ngIf="booking.visitingStatus === 'Not Visited' && !isFutureTime(booking.bookedForDate, calculateExpectedEndTime(booking.timeForBooked, booking.totalHoursEvBooking)  )"
-                                class="px-4 py-2  bg-gray-200">
-                                <p class="text-sm text-gray-500">User not visited </p>
-                            </div>
-
-
-
-                            <div *ngIf="booking.visitingStatus === 'Visited'" class="px-4 py-2 bg-green-300">
-                                <p class="text-sm text-gray-500">Visited</p>
-                            </div>
-
-                            <div class="flex justify-between gap-2 px-4 py-2 bg-none">
-                                <button class="bg-rose-800 text-white px-3 py-2 rounded-md"
-                                    (click)="paymentDetails(booking.bookingRefId)">View
-                                    Payment</button>
-                                <button (click)="downloadInvoice(booking.bookingRefId,userProfiles[i].email)"
-                                    class="bg-blue-800 text-white px-3 py-2 rounded-md">Send
-                                    Invoice</button>
-
-                                <button (click)="viewUserProfile(userProfiles[i])"
-                                    class="bg-green-800 text-white px-3 py-2 rounded-md">View Profile</button>
-
-
+                            <div class="flex gap-5 justify-between mt-2 mb-2">
+                                <p class="text-gray-500 text-sm">Location : {{userProfiles[i].city}} -
+                                    {{userProfiles[i].state}}</p>
                             </div>
                         </div>
-                    </ng-container>
 
-                    <br />
-                    <br />
-                    <br />
+
+
+                    </div>
+
+
+                    <div *ngIf="booking.visitingStatus === 'Not Visited' && !isFutureTime(booking.bookedForDate, calculateExpectedEndTime(booking.timeForBooked, booking.totalHoursEvBooking)  )"
+                        class="px-4 py-2  bg-gray-200">
+                        <p class="text-sm text-gray-500">User not visited </p>
+                    </div>
+
+
+
+                    <div *ngIf="booking.visitingStatus === 'Visited'" class="px-4 py-2 bg-green-300">
+                        <p class="text-sm text-gray-500">Visited</p>
+                    </div>
+
+                    <div class="flex justify-between gap-2 px-4 py-2 bg-none">
+                        <button class="bg-rose-800 text-white px-3 py-2 rounded-md"
+                            (click)="paymentDetails(booking.bookingRefId)">View
+                            Payment</button>
+                        <button (click)="downloadInvoice(booking.bookingRefId,userProfiles[i].email)"
+                            class="bg-blue-800 text-white px-3 py-2 rounded-md">Send
+                            Invoice</button>
+
+                        <button (click)="viewUserProfile(userProfiles[i])"
+                            class="bg-green-800 text-white px-3 py-2 rounded-md">View
+                            Profile</button>
+
+
+                    </div>
                 </div>
+            </ng-container>
 
-
-
-
-                <div *ngIf="!filteredBookings || filteredBookings.length === 0"
-                    class="flex justify-center items-center">
-                    <p class="text-gray-500">No bookings found.
-                    </p>
-                </div>
+            <div *ngIf="!filteredBookings || filteredBookings.length === 0" class="flex justify-center items-center">
+                <p class="text-gray-500">No bookings found.
+                </p>
             </div>
+
         </div>
     </div>
-
-
-
 </div>
+
+
 
 
 <!-- Payment Info View Modal -->
