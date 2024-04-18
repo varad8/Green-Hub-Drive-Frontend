@@ -293,10 +293,10 @@ export class EvdetailspageComponent {
     return `${this.baseUrl}/user/image/${filename}`;
   }
 
-  getStars(rating: number): number[] {
+  getStars(rating: number): boolean[] {
     const stars = [];
-    for (let i = 0; i < rating; i++) {
-      stars.push(i);
+    for (let i = 0; i < 5; i++) {
+      stars.push(i < rating);
     }
     return stars;
   }

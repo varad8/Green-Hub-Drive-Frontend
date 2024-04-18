@@ -88,4 +88,12 @@ export class EvcardComponent {
   getProfileImageUrl(filename: string): string {
     return `${this.baseUrl}/user/image/${filename}`;
   }
+
+  getStars(rating: number): boolean[] {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      stars.push(i < rating);
+    }
+    return stars;
+  }
 }
