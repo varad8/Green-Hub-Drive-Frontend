@@ -1,8 +1,17 @@
+<nav *ngIf="!isComplete" class="bg-green-500 py-2">
+    <div class="flex justify-between items-center px-4">
+        <b class="text-white text-lg">Please Complete Profile</b>
+        <a class="px-3 py-2 bg-black text-white text-sm rounded hover:bg-gray-700 transition"
+            routerLink="/user/settings">Complete Now</a>
+    </div>
+</nav>
+
+
 <nav class="nav-desktop">
     <a class="nav-desktop-logo" href="#">
         <div class="flex items-center gap-2">
             <img src="../../../assets/logo.png" class="h-10" alt="logo" />
-            <span class="dark:text-white text-green-500 text-xl">Green Hub Drive</span>
+            <span class="dark:text-white text-green-500 text-xl">Ev Glob</span>
         </div>
     </a>
     <!-- Mobile Menu Toggle Action -->
@@ -132,7 +141,7 @@
             <a class="mr-auto text-xl font-bold leading-none" href="#">
                 <div class="flex items-center">
                     <img src="../../../assets/logo.png" class="h-10" alt="logo" />
-                    <span class="dark:text-white text-green-500">Green Hub Drive</span>
+                    <span class="dark:text-white text-green-500">Ev Glob</span>
                 </div>
             </a>
             <button class="navbar-close" (click)="toggleClose()">

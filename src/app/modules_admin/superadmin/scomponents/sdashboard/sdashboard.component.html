@@ -1,7 +1,7 @@
 <div class="flex h-screen overflow-hidden">
     <!-- Sidebar (Always visible on lg or xl screens) -->
 
-    <div class="bg-slate-800 text-white w-64 p-4 overflow-y-auto nav-custom-scrollbar" id="sidebar"
+    <div class="bg-white dark:bg-slate-700  w-64 p-4 overflow-y-auto nav-custom-scrollbar" id="sidebar"
         [ngClass]="{'hidden lg:block xl:block': isMobile && !isSidebarOpen}">
         <!-- Close Icon -->
         <div class="flex justify-end mb-3">
@@ -14,7 +14,7 @@
         </div>
 
         <!-- Profile  -->
-        <div class="flex flex-col justify-start items-center rounded-md mb-3 gap-2 bg-slate-700 px-3 py-3">
+        <div class="bg-white dark:bg-slate-600 dark:text-white p-3 rounded-lg shadow-lg">
             <div class="flex justify-center items-center">
                 <img [src]="getProfileImageUrl(adminProfile?.profilepic)"
                     class="w-14 h-14 border rounded-full object-fill" [alt]="adminProfile?.firstName" />
@@ -27,16 +27,16 @@
                 <p class="text-sm">Email : {{adminProfile?.email}}</p>
             </div>
         </div>
-
-        <div class="border mt-2 mb-2  border-slate-700 w-full"></div>
+        <div class="border mt-2 mb-2  border-green-700  w-full"></div>
 
         <!--MENU LINKS -->
-        <p class="mb-4 text-gray-400">MENU</p>
+        <p class="mb-4 dark:text-gray-400 text-green-600">MENU</p>
+
 
         <!-- Dashboard Menu -->
         <a routerLink="analytics"
-            class="flex items-center gap-2 text-lg text-gray-300 hover:text-white  mb-1 hover:bg-slate-600 px-2 py-2"
-            routerLinkActive="bg-slate-600 dark:bg-slate-600">
+            class="flex items-center gap-2 text-lg hover:text-white hover:bg-green-500  dark:text-gray-300 dark:hover:text-white  mb-1 dark:hover:bg-slate-600 px-2 py-2"
+            routerLinkActive="dark:bg-slate-600 dark:bg-slate-600 bg-green-500 text-white">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -46,8 +46,9 @@
         </a>
 
         <!-- Booking List -->
-        <a routerLink="booking" routerLinkActive="bg-slate-600 dark:bg-slate-600"
-            class="flex items-center gap-2 text-lg text-gray-300 hover:text-white  mb-1 hover:bg-slate-600 px-2 py-2">
+        <a routerLink="booking"
+            class="flex items-center gap-2 text-lg hover:text-white hover:bg-green-500  dark:text-gray-300 dark:hover:text-white  mb-1 dark:hover:bg-slate-600 px-2 py-2"
+            routerLinkActive="dark:bg-slate-600 dark:bg-slate-600 bg-green-500 text-white">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -57,10 +58,10 @@
         </a>
 
 
-
         <!-- Profile Menu -->
-        <a routerLink="profile" routerLinkActive="bg-slate-600 dark:bg-slate-600"
-            class="flex items-center gap-2 text-lg text-gray-300 hover:text-white  mb-1 hover:bg-slate-600 px-2 py-2">
+        <a routerLink="profile"
+            class="flex items-center gap-2 text-lg hover:text-white hover:bg-green-500  dark:text-gray-300 dark:hover:text-white  mb-1 dark:hover:bg-slate-600 px-2 py-2"
+            routerLinkActive="dark:bg-slate-600 dark:bg-slate-600 bg-green-500 text-white">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -70,8 +71,9 @@
         </a>
 
         <!-- Settings -->
-        <a routerLink="settings" routerLinkActive="bg-slate-600 dark:bg-slate-600"
-            class="flex items-center gap-2 text-lg text-gray-300 hover:text-white  mb-1 hover:bg-slate-600 px-2 py-2">
+        <a routerLink="settings"
+            class="flex items-center gap-2 text-lg hover:text-white hover:bg-green-500  dark:text-gray-300 dark:hover:text-white  mb-1 dark:hover:bg-slate-600 px-2 py-2"
+            routerLinkActive="dark:bg-slate-600 dark:bg-slate-600 bg-green-500 text-white">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -87,7 +89,7 @@
         <p class="mb-4 text-gray-400 uppercase">OTHERS</p>
 
         <!-- Dark Mode Night Mode -->
-        <div class="mb-1 px-2 py-2 gap-2 flex items-center text-lg"><!-- Dark Mode Toggling -->
+        <div class="mb-1 px-2 py-2 gap-2 flex items-center text-lg dark:text-gray-200"><!-- Dark Mode Toggling -->
             <button (click)="darkMode.set(!darkMode())" class="flex gap-2 items-center">
                 <!-- Moon Svg -->
                 <span *ngIf="!darkMode()"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -120,7 +122,7 @@
         <!-- Sign OUt -->
 
         <button
-            class="flex items-center gap-2 text-lg text-gray-300 hover:text-white w-full  mb-1 hover:bg-slate-600 px-2 py-2"
+            class="flex items-center gap-2 text-lg text-gray-300 hover:text-white w-full  mb-1 hover:bg-slate-600 px-2 py-2 bg-red-500 rounded-md shadow-2"
             (click)="logOut()">
 
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -133,9 +135,12 @@
     </div>
 
 
+
+
+
     <div class="flex flex-col h-screen w-full">
         <!-- Header -->
-        <header class="bg-slate-800 text-white p-4">
+        <header class="dark:bg-slate-800 dark:text-white p-4 bg-green-800 text-green-500 ">
             <!-- Header content goes here -->
             <button (click)="toggleSidebar()" class="flex gap-3 items-center lg:hidden xl:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-slate-100" viewBox="0 0 24 24" fill="none">

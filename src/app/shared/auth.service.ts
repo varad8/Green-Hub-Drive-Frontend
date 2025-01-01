@@ -87,6 +87,7 @@ export class AuthService {
   checkUserLoggedIn(): boolean {
     // Check if there is an existing session with the admin accountType
     const existingSessionUser = this.sst.retrieve('webuser');
+    console.log(existingSessionUser);
 
     // Return true if there is an existing session with superadmin or admin accountType, otherwise return false
     return !!(

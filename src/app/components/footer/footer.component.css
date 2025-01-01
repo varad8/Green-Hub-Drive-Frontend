@@ -1,5 +1,5 @@
 .footer-main {
-  @apply bg-no-repeat object-cover py-4 text-gray-200;
+  @apply bg-green-700 py-4 text-gray-200;
 }
 .footer-sub-main {
   @apply container px-4 mx-auto;

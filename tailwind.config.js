@@ -29,6 +29,8 @@ module.exports = {
         boxdark: "#24303F",
         strokedark: "#2E3A47",
         "form-strokedark": "#3d4d60",
+        lightbg: "#F9F9F9",
+        darkbg: "#121212",
       },
       backgroundImage: {
         "hero-bg": "url('./assets/hero-bg.png')",

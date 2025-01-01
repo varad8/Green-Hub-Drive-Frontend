@@ -32,6 +32,8 @@ export class EvdetailspageComponent {
   station: any;
   session: any;
   ratingdata: any;
+  userProfile: any;
+  isComplete: boolean = true;
 
   //Booking fields
   selectedSlot: string = '';
@@ -70,6 +72,23 @@ export class EvdetailspageComponent {
     this.userLogged = this.userAuth.getWebUserSession();
     this.stationid = this.route.snapshot.paramMap.get('stationid');
     this.populateMarkers();
+
+    // Fetch user profile if session exists and user is logged in
+    if (this.session && this.session.accountType === 'user') {
+      this.userAuth.getUserProfileUsingID(this.session.userid).subscribe(
+        (response: any) => {
+          if (response.success) {
+            this.userProfile = response.profile;
+            this.isComplete = response.complete;
+
+            console.log(response);
+          }
+        },
+        (error) => {
+          console.error('Error fetching user profile:', error);
+        }
+      );
+    }
 
     //Get the query params
     // Retrieve query parameters and log them
@@ -155,15 +174,23 @@ export class EvdetailspageComponent {
     if (this.infoWindow != undefined) this.infoWindow.open(marker);
   }
 
-  // Book Slot Logic here
   bookSlot(stationdata: any) {
     if (!this.userLoggedStatus) {
       return alert('Please Logged In First');
     }
 
-    if (this.userLoggedStatus && this.session?.accountType !== 'user') {
-      return alert('This feature for only user');
+    if (this.session?.accountType !== 'user') {
+      return alert('This feature is for users only');
     }
+
+    // Check if the profile is complete
+    if (!this.isComplete) {
+      return alert(
+        'Please complete your profile first to book your EV station.'
+      );
+    }
+
+    // If all checks pass, proceed to book the slot
     this.selecteddata = stationdata;
     this.openBookingModal = true;
   }

@@ -17,6 +17,8 @@ import { AuthService } from '../../shared/auth.service';
 export class NavbarComponent {
   darkMode = signal<boolean>(false);
   session: any;
+  userProfile: any;
+  isComplete: boolean = true;
   isOpenMenu: boolean = false;
 
   @HostBinding('class.dark') get mode() {
@@ -81,6 +83,23 @@ export class NavbarComponent {
   ngOnInit(): void {
     // Check for an existing session when the component is initialized
     this.session = this.auth.getWebUserSession();
+
+    // Fetch user profile if session exists and user is logged in
+    if (this.session && this.session.accountType === 'user') {
+      this.auth.getUserProfileUsingID(this.session.userid).subscribe(
+        (response: any) => {
+          if (response.success) {
+            this.userProfile = response.profile;
+            this.isComplete = response.complete;
+
+            console.log(response);
+          }
+        },
+        (error) => {
+          console.error('Error fetching user profile:', error);
+        }
+      );
+    }
   }
 
   toggleMenuOption() {
